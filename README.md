@@ -3,7 +3,7 @@ Este es un repositorio creado con DJANGO para la creación y modificación de la
 Esta es una API orientada a un proyecto llamdo Encanto, que va ser desarrollado para la carrera de ITM de la Universidad de Costa Rica.
 Integrantes:
   Eddy Chaves,
-  Estefania Jimenez Cordero
+  Estefania Jimenez Cordero,
   Ian Miranda,
   Juan Camacho Sanchez,
   Keyler Ibarra
