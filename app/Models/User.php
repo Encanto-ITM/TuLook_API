@@ -20,6 +20,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'contacPublic',
+        'professionUser_id',
+        'acountTipe_id',
+        'isActive',
+        'person_id',
     ];
 
     /**
