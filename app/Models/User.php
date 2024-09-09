@@ -20,10 +20,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'contacPublic',
-        'professionUser_id',
-        'acountTipe_id',
-        'isActive',
+        'contac_public',
+        'profession_user_id',
+        'acount_type_id',
+        'is_active',
         'person_id',
     ];
 
