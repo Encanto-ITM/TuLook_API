@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('appointment', function (Blueprint $table) {
+        Schema::create('servicehasbenefit', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_id')->constrained('service');
-            $table->foreignId('user_id')->constrained('users');
-            $table->dateTime('date');
-            $table->string('status');
-            $table->string('periocity');
-            $table->string('location');
+            $table->foreignId('service_id')->constrained('services');
+            $table->foreignId('benefit_id')->constrained('benefit');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('appointment');
+        Schema::dropIfExists('servicehasbenefit');
     }
 };
