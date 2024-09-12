@@ -16,7 +16,7 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        $appointments = Appointment::paginate();
+        $appointments = Appointment::all();
 
         return AppointmentResource::collection($appointments);
     }

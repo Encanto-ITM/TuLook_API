@@ -16,9 +16,9 @@ class BenefitController extends Controller
      */
     public function index(Request $request)
     {
-        $benefits = Benefit::paginate();
+        $benefit = Benefit::all();
 
-        return BenefitResource::collection($benefits);
+        return BenefitResource::collection($benefit);
     }
 
     /**

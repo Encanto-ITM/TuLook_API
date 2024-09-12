@@ -16,9 +16,9 @@ class ServicehasbenefitController extends Controller
      */
     public function index(Request $request)
     {
-        $servicehasbenefits = Servicehasbenefit::paginate();
+        $servicehasbenefit = Servicehasbenefit::all();
 
-        return ServicehasbenefitResource::collection($servicehasbenefits);
+        return ServicehasbenefitResource::collection($servicehasbenefit);
     }
 
     /**

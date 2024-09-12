@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('is_active');
             $table->string('password');
             $table->rememberToken();
-            $table->foreignId('acounttype_id')->constrained('acounttype');
+            $table->foreignId('acounttype_id')->constrained('acounttypes');
             $table->foreignId('professions_id')->constrained('professions');
             $table->timestamps();
         });

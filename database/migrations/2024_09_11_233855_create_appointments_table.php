@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('acounttype', function (Blueprint $table) {
+        Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->string('detail');
+            $table->foreignId('service_id')->constrained('services');
+            $table->foreignId('user_id')->constrained('users');
+            $table->dateTime('date');
+            $table->string('status');
+            $table->string('periocity');
+            $table->string('location');
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('acounttype');
+        Schema::dropIfExists('appointments');
     }
 };

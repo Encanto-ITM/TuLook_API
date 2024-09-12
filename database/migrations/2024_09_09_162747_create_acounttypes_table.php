@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('benefit', function (Blueprint $table) {
+        Schema::create('acounttypes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('type');
             $table->string('detail');
-            $table->string('material_list');
-            $table->string('image');
-            $table->string('aprox_time');
-            $table->string('considerations');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('benefit');
+        Schema::dropIfExists('acounttypes');
     }
 };

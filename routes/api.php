@@ -17,7 +17,7 @@ Route::get('/user', function (Request $request) {
 Route::Resource('servicehasbenefits', ServicehasbenefitController::class);
 Route::Resource('appointments', AppointmentController::class);
 Route::Resource('professions', ProfessionController::class);
-Route::Resource('acounttype', AcounttypeController::class);
+Route::Resource('acounttypes', AcounttypeController::class);
 Route::Resource('services', ServiceController::class);
 Route::Resource('benefits', BenefitController::class);
 Route::Resource('users', UserController::class);
