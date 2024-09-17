@@ -26,11 +26,11 @@ class UserRequest extends FormRequest
 			'lastname' => 'required|string',
 			'email' => 'required|string',
             'password'=> 'required|string',
-			'contact_number' => 'required|string',
-			'contact_public' => 'required|string',
-			'is_active' => 'required|string',
-			'acounttype_id' => 'required',
-			'professions_id' => 'required',
+			'contact_number' => 'string',
+			'contact_public' => 'string',
+			'is_active' => 'integer',
+			'acounttype_id' => 'integer',
+			'professions_id' => 'integer',
         ];
     }
 }
