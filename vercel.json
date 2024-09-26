@@ -1,6 +1,9 @@
 {
     "version": 2,
     "framework": null,
+    "functions": {
+        "api/index.php": { "runtime": "vercel-php@0.7.1" }
+    },
     "routes": [{
         "src": "/(.*)",
         "dest": "/api/index.php"
@@ -20,11 +23,5 @@
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie"
-    },
-    "builds": [
-        {
-            "src": "./composer.json",
-            "use": "@vercel/php"
-        }
-    ]
+    }
 }
