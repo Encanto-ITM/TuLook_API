@@ -65,4 +65,25 @@ class ServiceController extends Controller
         // Retornar los beneficios en formato de recurso
         return ServiceResource::collection($services);
     }
+
+    /**
+     * Display a listing of the services that match the specified name.
+     */
+    public function getServicesByName(Request $request)
+    {
+        // Validar el parámetro de búsqueda
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Obtener todos los beneficios que coincidan con el nombre proporcionado
+        $services = Service::where('name', 'like', '%' . $request->name . '%')->get();
+
+        // Retornar los beneficios en formato de recurso
+        if ($services->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        }
+
+        return ServiceResource::collection($services);
+    }
 }

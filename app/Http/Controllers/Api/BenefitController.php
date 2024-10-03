@@ -65,4 +65,25 @@ class BenefitController extends Controller
         // Retornar los beneficios en formato de recurso
         return BenefitResource::collection($benefits);
     }
+
+    /**
+     * Display a listing of the benefits that match the specified name.
+     */
+    public function getBenefitsByName(Request $request)
+    {
+        // Validar el parámetro de búsqueda
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Obtener todos los beneficios que coincidan con el nombre proporcionado
+        $benefits = Benefit::where('name', 'like', '%' . $request->name . '%')->get();
+
+        // Retornar los beneficios en formato de recurso
+        if ($benefits->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        }
+
+        return BenefitResource::collection($benefits);
+    }
 }
