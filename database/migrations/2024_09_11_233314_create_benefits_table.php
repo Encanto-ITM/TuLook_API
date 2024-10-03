@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('image');
             $table->string('aprox_time');
             $table->string('considerations');
+            $table->string('price');
+            $table->bigInteger('service_id')->constrained('services');
             $table->timestamps();
         });
     }

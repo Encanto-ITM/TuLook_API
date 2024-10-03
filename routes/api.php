@@ -14,7 +14,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::Resource('servicehasbenefits', ServicehasbenefitController::class);
+Route::get('/benefits/{serviceId}/services', [BenefitController::class, 'getBenefitsByService']);
+Route::get('/services/{ownerId}/owner', [ServiceController::class, 'getServicesByOwner']);
 Route::Resource('appointments', AppointmentController::class);
 Route::Resource('professions', ProfessionController::class);
 Route::Resource('acounttypes', AcounttypeController::class);

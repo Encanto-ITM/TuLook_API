@@ -53,4 +53,16 @@ class ServiceController extends Controller
 
         return response()->noContent();
     }
+
+    /**
+     * Display a listing of the service for a specified owner.
+     */
+    public function getServicesByOwner($ownerId)
+    {
+        // Obtener todos los beneficios relacionados con el servicio
+        $services = Service::where('owner_id', $ownerId)->get();
+
+        // Retornar los beneficios en formato de recurso
+        return ServiceResource::collection($services);
+    }
 }

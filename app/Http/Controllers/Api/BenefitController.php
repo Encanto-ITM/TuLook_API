@@ -53,4 +53,16 @@ class BenefitController extends Controller
 
         return response()->noContent();
     }
+
+    /**
+     * Display a listing of the benefits for a specified service.
+     */
+    public function getBenefitsByService($serviceId)
+    {
+        // Obtener todos los beneficios relacionados con el servicio
+        $benefits = Benefit::where('service_id', $serviceId)->get();
+
+        // Retornar los beneficios en formato de recurso
+        return BenefitResource::collection($benefits);
+    }
 }
