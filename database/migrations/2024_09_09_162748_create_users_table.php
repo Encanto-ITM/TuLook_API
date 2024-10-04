@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('profilephoto')->nullable(true);
             $table->string('headerphoto')->nullable(true);
             $table->string('password')->nullable(false);
+            $table->string('description')->nullable(true);
             $table->rememberToken();
             $table->foreignId('acounttype_id')->constrained('acounttypes')->deferrable(2)->noActionOnDelete();
             $table->foreignId('professions_id')->constrained('professions')->deferrable(2)->noActionOnDelete();

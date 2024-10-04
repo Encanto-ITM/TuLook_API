@@ -120,4 +120,17 @@ class UserController extends Controller
         // Guardar la imagen en el almacenamiento público
         return Storage::putFileAs("public/{$folder}", $image, $filename);
     }
+
+    public function getWorkers(Request $request)
+    {
+        // Obtener todos los beneficios que coincidan con el nombre proporcionado
+        $workers = User::where('acounttype_id', 3)->get();
+
+        // Retornar los beneficios en formato de recurso
+        if ($workers->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        }
+
+        return UserResource::collection($workers);
+    }
 }

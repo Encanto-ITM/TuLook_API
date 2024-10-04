@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ServicehasbenefitController;
 use App\Http\Controllers\Api\UserController;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::get('/benefits/search', [BenefitController::class, 'getBenefitsByName']);
 
 Route::get('/services/{ownerId}/owner', [ServiceController::class, 'getServicesByOwner']);
 Route::get('/services/search', [ServiceController::class, 'getServicesByName']);
+
+Route::get('workers', [UserController::class, 'getWorkers']);
 
 Route::Resource('appointments', AppointmentController::class);
 Route::Resource('professions', ProfessionController::class);
