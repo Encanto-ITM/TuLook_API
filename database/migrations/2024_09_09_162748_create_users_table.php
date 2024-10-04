@@ -13,17 +13,19 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique('name');
-            $table->string('lastname')->unique('lastname');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('contact_number')->nullable(false);
-            $table->string('contact_public')->nullable(false);
-            $table->string('is_active');
-            $table->string('password');
+            $table->string('name')->unique('name')->nullable(false);
+            $table->string('lastname')->nullable(false);
+            $table->string('email')->unique()->nullable(false);
+            $table->timestamp('email_verified_at')->nullable(true);
+            $table->string('contact_number')->nullable(true);
+            $table->string('contact_public')->nullable(true)->default(0);
+            $table->string('is_active')->default(1);
+            $table->string('profilephoto')->nullable(true);
+            $table->string('headerphoto')->nullable(true);
+            $table->string('password')->nullable(false);
             $table->rememberToken();
-            $table->foreignId('acounttype_id')->constrained('acounttypes');
-            $table->foreignId('professions_id')->constrained('professions');
+            $table->foreignId('acounttype_id')->constrained('acounttypes')->deferrable(2)->noActionOnDelete();
+            $table->foreignId('professions_id')->constrained('professions')->deferrable(2)->noActionOnDelete();
             $table->timestamps();
         });
 
