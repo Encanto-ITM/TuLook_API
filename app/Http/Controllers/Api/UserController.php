@@ -124,7 +124,20 @@ class UserController extends Controller
     public function getWorkers(Request $request)
     {
         // Obtener todos los beneficios que coincidan con el nombre proporcionado
-        $workers = User::where('acounttype_id', 3)->get();
+        $workers = User::select(
+            
+            'name',
+            'lastname', 
+            'email',
+            'contact_public', 
+            'contact_number',
+            'profilephoto',
+            'headerphoto',
+            'professions.profession'
+        )
+        ->join('professions', 'users.professions_id', '=', 'professions.id')
+        ->where('is_active', 1)
+        ->where('acounttype_id', 3)->get();
 
         // Retornar los beneficios en formato de recurso
         if ($workers->isEmpty()) {
