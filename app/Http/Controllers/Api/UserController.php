@@ -133,6 +133,7 @@ class UserController extends Controller
             'contact_number',
             'profilephoto',
             'headerphoto',
+            'description',
             'professions.profession'
         )
         ->join('professions', 'users.professions_id', '=', 'professions.id')
