@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use function Laravel\Prompts\password;
-
 /**
  * Class User
  *
@@ -17,7 +15,11 @@ use function Laravel\Prompts\password;
  * @property $contact_number
  * @property $contact_public
  * @property $is_active
+ * @property $profilephoto
+ * @property $headerphoto
  * @property $password
+ * @property $address
+ * @property $description
  * @property $remember_token
  * @property $acounttype_id
  * @property $professions_id
@@ -41,7 +43,7 @@ class User extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'lastname', 'password', 'email', 'contact_number', 'contact_public', 'is_active', 'acounttype_id', 'professions_id'];
+    protected $fillable = ['name', 'lastname', 'email', 'contact_number', 'contact_public', 'is_active', 'profilephoto', 'headerphoto', 'address', 'description', 'acounttype_id', 'professions_id'];
 
 
     /**

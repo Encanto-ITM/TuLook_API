@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable(false);
             $table->foreignId('owner_id')->constrained('users');
-            $table->string('image');
-            $table->string('details');
-            $table->string('locations');
-            $table->string('schedule');
-            $table->dateTime('start_at');
-            $table->dateTime('end_at');
+            $table->string('image')->nullable(true);
+            $table->string('price')->nullable(false);
+            $table->string('details')->nullable(false);
+            $table->string('schedule')->nullable(false)->default("Lunes a viernes");
+            $table->string('material_list')->nullable(true);
+            $table->enum('mode', ['Solo local', 'Voy al lugar', 'Ambos servicios'])->default('Voy al lugar');
+            $table->string('is_active')->default(1);
+            $table->string('considerations')->nullable(false);
+            $table->string('aprox_time')->nullable(true);
+            $table->string('type_service_id')->constrained('type_service')->noActionOnDelete();
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        $appointments = Appointment::all();
+        $appointments = Appointment::paginate();
 
         return AppointmentResource::collection($appointments);
     }
@@ -52,5 +52,22 @@ class AppointmentController extends Controller
         $appointment->delete();
 
         return response()->noContent();
+    }
+
+    /**
+     * Display a listing of the service for a specified owner.
+     */
+    public function getServicesByOwner($ownerId)
+    {
+        // Obtener todos los beneficios relacionados con el servicio
+        $services = Appointment::where('owner_id', $ownerId)->get();
+
+        // Retornar los beneficios en formato de recurso
+        if ($services->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        }
+
+        // Retornar los beneficios en formato de recurso
+        return ServiceResource::collection($services);
     }
 }

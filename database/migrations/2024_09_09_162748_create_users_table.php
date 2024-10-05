@@ -13,20 +13,21 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique('name')->nullable(false);
+            $table->string('name')->nullable(false);
             $table->string('lastname')->nullable(false);
             $table->string('email')->unique()->nullable(false);
             $table->timestamp('email_verified_at')->nullable(true);
-            $table->string('contact_number')->nullable(true);
+            $table->string('contact_number')->unique()->nullable(true);
             $table->string('contact_public')->nullable(true)->default(0);
             $table->string('is_active')->default(1);
             $table->string('profilephoto')->nullable(true);
             $table->string('headerphoto')->nullable(true);
             $table->string('password')->nullable(false);
+            $table->string('address')->nullable(true);
             $table->string('description')->nullable(true);
             $table->rememberToken();
-            $table->foreignId('acounttype_id')->constrained('acounttypes')->deferrable(2)->noActionOnDelete();
-            $table->foreignId('professions_id')->constrained('professions')->deferrable(2)->noActionOnDelete();
+            $table->foreignId('acounttype_id')->constrained('acounttypes')->noActionOnDelete()->default(2);
+            $table->foreignId('professions_id')->constrained('professions')->noActionOnDelete()->default(2);
             $table->timestamps();
         });
 

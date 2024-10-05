@@ -24,11 +24,16 @@ class ServiceRequest extends FormRequest
         return [
 			'name' => 'required|string',
 			'owner_id' => 'required',
+			'image' => 'string',
+			'price' => 'required|string',
 			'details' => 'required|string',
-			'locations' => 'required|string',
 			'schedule' => 'required|string',
-			'start_at' => 'required',
-			'end_at' => 'required',
+			'material_list' => 'string',
+			'mode' => 'required',
+			'is_active' => 'required|string',
+			'considerations' => 'required|string',
+			'aprox_time' => 'string',
+			'type_service_id' => 'required|string',
         ];
     }
 }

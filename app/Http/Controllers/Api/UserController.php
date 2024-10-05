@@ -15,19 +15,24 @@ class UserController extends Controller
     protected $profilephoto;
     protected $headerphoto;
 
-    public function getProfilePhoto() {
+    public function getProfilePhoto()
+    {
         return $this->profilephoto;
     }
 
-    public function setProfilePhoto($profilePhoto) {
+    public function setProfilePhoto($profilePhoto)
+    {
         $this->profilephoto = $profilePhoto;
     }
 
-    public function getHeaderPhoto() {
+    public function getHeaderPhoto()
+    {
         return $this->headerphoto;
     }
 
-    public function setHeaderPhoto($headerPhoto) {
+
+    public function setHeaderPhoto($headerPhoto)
+    {
         $this->headerphoto = $headerPhoto;
     }
 
@@ -85,7 +90,7 @@ class UserController extends Controller
             }
             $user->setProfilePhoto($this->uploadImage($request->file('profilephoto'), 'profilepics', $user));
         }
-    
+
         if ($request->hasFile('headerphoto')) {
             // Eliminar imagen anterior si existe
             if ($user->getHeaderPhoto()) {
@@ -99,9 +104,6 @@ class UserController extends Controller
         return $user;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(User $user): Response
     {
         $user->delete();
@@ -123,24 +125,27 @@ class UserController extends Controller
 
     public function getWorkers(Request $request)
     {
-        // Obtener todos los beneficios que coincidan con el nombre proporcionado
+        // Obtener todos los trabajadores que coincidan con los criterios proporcionados
         $workers = User::select(
-            
-            'name',
-            'lastname', 
-            'email',
-            'contact_public', 
-            'contact_number',
-            'profilephoto',
-            'headerphoto',
-            'description',
+            'users.id', // Calificar el id con el nombre de la tabla
+            'users.name',
+            'users.lastname',
+            'users.email',
+            'users.contact_public',
+            'users.contact_number',
+            'users.profilephoto',
+            'users.headerphoto',
+            'users.address',
+            'users.description',
+            'professions.id as profession_id',
             'professions.profession'
         )
-        ->join('professions', 'users.professions_id', '=', 'professions.id')
-        ->where('is_active', 1)
-        ->where('acounttype_id', 3)->get();
+            ->join('professions', 'users.professions_id', '=', 'professions.id')
+            ->where('is_active', 1)
+            ->where('acounttype_id', 3)
+            ->get();
 
-        // Retornar los beneficios en formato de recurso
+        // Retornar los trabajadores en formato de recurso
         if ($workers->isEmpty()) {
             return response()->json(['message' => 'No se encontraron resultados'], 404);
         }

@@ -10,15 +10,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $name
  * @property $owner_id
+ * @property $image
+ * @property $price
  * @property $details
- * @property $locations
  * @property $schedule
- * @property $start_at
- * @property $end_at
+ * @property $material_list
+ * @property $mode
+ * @property $is_active
+ * @property $considerations
+ * @property $aprox_time
+ * @property $type_service_id
  * @property $created_at
  * @property $updated_at
  *
  * @property User $user
+ * @property Appointment[] $appointments
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -32,7 +38,7 @@ class Service extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'owner_id', 'details', 'locations', 'schedule', 'start_at', 'end_at'];
+    protected $fillable = ['name', 'owner_id', 'image', 'price', 'details', 'schedule', 'material_list', 'mode', 'is_active', 'considerations', 'aprox_time', 'type_service_id'];
 
 
     /**
@@ -41,6 +47,14 @@ class Service extends Model
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class, 'owner_id', 'id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function appointments()
+    {
+        return $this->hasMany(\App\Models\Appointment::class, 'id', 'service_id');
     }
     
 }

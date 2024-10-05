@@ -63,6 +63,11 @@ class ServiceController extends Controller
         $services = Service::where('owner_id', $ownerId)->get();
 
         // Retornar los beneficios en formato de recurso
+        if ($services->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        }
+
+        // Retornar los beneficios en formato de recurso
         return ServiceResource::collection($services);
     }
 
@@ -78,6 +83,20 @@ class ServiceController extends Controller
 
         // Obtener todos los beneficios que coincidan con el nombre proporcionado
         $services = Service::where('name', 'like', '%' . $request->name . '%')->get();
+
+        // Retornar los beneficios en formato de recurso
+        if ($services->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        }
+
+        return ServiceResource::collection($services);
+    }
+
+
+    public function getServicesByType($type_service_id)
+    {
+        // Obtener todos los beneficios relacionados con el servicio
+        $services = Service::where('type_service_id', $type_service_id)->get();
 
         // Retornar los beneficios en formato de recurso
         if ($services->isEmpty()) {

@@ -16,7 +16,7 @@ class ProfessionController extends Controller
      */
     public function index(Request $request)
     {
-        $professions = Profession::all();
+        $professions = Profession::paginate();
 
         return ProfessionResource::collection($professions);
     }

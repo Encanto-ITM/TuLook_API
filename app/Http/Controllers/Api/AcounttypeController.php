@@ -16,7 +16,7 @@ class AcounttypeController extends Controller
      */
     public function index(Request $request)
     {
-        $acounttypes = Acounttype::all();
+        $acounttypes = Acounttype::paginate();
 
         return AcounttypeResource::collection($acounttypes);
     }
