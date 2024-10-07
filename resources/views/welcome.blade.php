@@ -29,15 +29,15 @@
                         <a href="/api/api/users">/api/users</a> <span>→ Accede a todos los usuarios</span>
                     </li>
                     <li>
-                        <a href="/api/api/users/admins">/api/users/admins</a> 
+                        <a href="/api/api/admins">/api/admins</a> 
                         <span>→ Accede a todos los administradores</span>
                     </li>
                     <li>
-                        <a href="/api/api/users/clients">/api/users/clients</a> 
+                        <a href="/api/api/clients">/api/clients</a> 
                         <span>→ Accede a todos los clientes</span>
                     </li>
                     <li>
-                        <a href="/api/api/users/workers">/api/users/workers</a> 
+                        <a href="/api/api/workers">/api/workers</a> 
                         <span>→ Accede a todos los trabajadores</span>
                     </li>
                 </ul>
