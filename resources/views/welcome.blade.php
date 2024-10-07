@@ -26,18 +26,18 @@
                 <h2 class="font-weight-bolder">Usuarios</h2><hr>
                 <ul>
                     <li>
-                        <a href="/api/users">/api/users</a> <span>→ Accede a todos los usuarios</span>
+                        <a href="/api/api/users">/api/users</a> <span>→ Accede a todos los usuarios</span>
                     </li>
                     <li>
-                        <a href="/api/users/admins">/api/users/admins</a> 
+                        <a href="/api/api/users/admins">/api/users/admins</a> 
                         <span>→ Accede a todos los administradores</span>
                     </li>
                     <li>
-                        <a href="/api/users/clients">/api/users/clients</a> 
+                        <a href="/api/api/users/clients">/api/users/clients</a> 
                         <span>→ Accede a todos los clientes</span>
                     </li>
                     <li>
-                        <a href="/api/users/workers">/api/users/workers</a> 
+                        <a href="/api/api/users/workers">/api/users/workers</a> 
                         <span>→ Accede a todos los trabajadores</span>
                     </li>
                 </ul>
@@ -46,19 +46,19 @@
                 <h2 class="font-weight-bolder">Servicios</h2><hr>
                 <ul>
                     <li>
-                        <a href="/api/services">/api/services</a> 
+                        <a href="/api/api/services">/api/services</a> 
                         <span>→ Accede a todos los servicios</span>
                     </li>
                     <li>
-                        <a href="/api/services/{ownerId}/owner">/api/services/{ownerId}/owner</a> 
+                        <a href="/api/api/services/{ownerId}/owner">/api/services/{ownerId}/owner</a> 
                         <span>→ Accede a todos los servicios de un usuario</span>
                     </li>
                     <li>
-                        <a href="/api/services/search?name={related_name}">/api/services/search?name={"related_name"}</a>
+                        <a href="/api/api/services/search?name={related_name}">/api/services/search?name={"related_name"}</a>
                         <span>→ Devuelve los servicios que coincidan con el nombre</span>
                     </li>
                     <li>
-                        <a href="/api/services/{typeId}/filtertype">/api/services/{typeId}/filtertype</a>
+                        <a href="/api/api/services/{typeId}/filtertype">/api/services/{typeId}/filtertype</a>
                         <span>→ Devuelve los servicios filtrados por tipo</span>
                     </li>
                 </ul>
@@ -67,15 +67,15 @@
                 <h2 class="font-weight-bolder">Citas</h2><hr>
                 <ul>
                     <li>
-                        <a href="/api/appointments">/api/appointments</a> 
+                        <a href="/api/api/appointments">/api/appointments</a> 
                         <span>→ Accede a todas las citas</span>
                     </li>
                     <li>
-                        <a href="/api/appointments/{ownerId}/owner">/api/appointments/{ownerId}/owner</a> 
+                        <a href="/api/api/appointments/{ownerId}/owner">/api/appointments/{ownerId}/owner</a> 
                         <span>→ Accede a todas las citas de un emprendedor</span>
                     </li>
                     <li>
-                        <a href="/api/appointments/{clientId}/client">/api/appointments/{clientId}/client</a> 
+                        <a href="/api/api/appointments/{clientId}/client">/api/appointments/{clientId}/client</a> 
                         <span>→ Accede a todas las citas de un cliente</span>
                     </li>
                 </ul>
@@ -84,15 +84,15 @@
                 <h2 class="font-weight-bolder">Otros</h2><hr>
                 <ul>
                     <li>
-                       <a href="/api/type_services">/api/type_services</a>
+                       <a href="/api/api/type_services">/api/type_services</a>
                         <span>→ Accede a todos los tipos de servicio</span>
                     </li>
                     <li>
-                        <a href="/api/professions">/api/professions</a>
+                        <a href="/api/api/professions">/api/professions</a>
                         <span>→ Accede a todas las profesiones</span>
                     </li>
                     <li>
-                        <a href="/api/acounttypes">/api/acounttypes</a>
+                        <a href="/api/api/acounttypes">/api/acounttypes</a>
                         <span>→ Accede a todos los tipos de cuenta</span>
                     </li>
                 </ul>
