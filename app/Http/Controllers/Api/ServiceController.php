@@ -34,9 +34,9 @@ class ServiceController extends Controller
             'services.type_service_id',
             'type_services.name as type_service_name'
         )
-        ->join('type_services', 'services.type_service_id', '=', 'type_services.id')
-        ->join('users as user', 'services.owner_id', '=', 'user.id')
-        ->get();
+            ->join('type_services', 'services.type_service_id', '=', 'type_services.id')
+            ->join('users as user', 'services.owner_id', '=', 'user.id')
+            ->get();
 
         return ServiceResource::collection($services);
     }
@@ -80,7 +80,27 @@ class ServiceController extends Controller
     public function getServicesByOwner($ownerId)
     {
         // Obtener todos los beneficios relacionados con el servicio
-        $services = Service::where('owner_id', $ownerId)->get();
+        $services = Service::select(
+            'services.id', // Especifica la tabla para el id
+            'services.name',
+            'services.price',
+            'services.owner_id',
+            'user.name as owner_name',
+            'user.lastname as owner_lastname',
+            'services.image',
+            'services.details',
+            'services.schedule',
+            'services.material_list',
+            'services.mode',
+            'services.is_active',
+            'services.considerations',
+            'services.aprox_time',
+            'services.type_service_id',
+            'type_services.name as type_service_name'
+        )
+            ->join('type_services', 'services.type_service_id', '=', 'type_services.id')
+            ->join('users as user', 'services.owner_id', '=', 'user.id')
+            ->get();
 
         // Retornar los beneficios en formato de recurso
         if ($services->isEmpty()) {
@@ -102,7 +122,27 @@ class ServiceController extends Controller
         ]);
 
         // Obtener todos los beneficios que coincidan con el nombre proporcionado
-        $services = Service::where('name', 'like', '%' . $request->name . '%')->get();
+        $services = Service::select(
+            'services.id', // Especifica la tabla para el id
+            'services.name',
+            'services.price',
+            'services.owner_id',
+            'user.name as owner_name',
+            'user.lastname as owner_lastname',
+            'services.image',
+            'services.details',
+            'services.schedule',
+            'services.material_list',
+            'services.mode',
+            'services.is_active',
+            'services.considerations',
+            'services.aprox_time',
+            'services.type_service_id',
+            'type_services.name as type_service_name'
+        )
+            ->join('type_services', 'services.type_service_id', '=', 'type_services.id')
+            ->join('users as user', 'services.owner_id', '=', 'user.id')
+            ->get();
 
         // Retornar los beneficios en formato de recurso
         if ($services->isEmpty()) {
