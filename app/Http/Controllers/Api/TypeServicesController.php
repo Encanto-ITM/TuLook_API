@@ -9,16 +9,16 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TypeServicesResource;
 
-class TypeServiceController extends Controller
+class TypeServicesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $typeService = TypeServices::all();
+        $typeServices = TypeServices::all();
 
-        return TypeServicesResource::collection($typeService);
+        return TypeServicesResource::collection($typeServices);
     }
 
     /**
@@ -32,24 +32,24 @@ class TypeServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TypeServices $typeService): TypeServices
+    public function show(TypeServices $typeServices): TypeServices
     {
-        return $typeService;
+        return $typeServices;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(TypeServicesRequest $request, TypeServices $typeService): TypeServices
+    public function update(TypeServicesRequest $request, TypeServices $typeServices): TypeServices
     {
-        $typeService->update($request->validated());
+        $typeServices->update($request->validated());
 
-        return $typeService;
+        return $typeServices;
     }
 
-    public function destroy(TypeServices $typeService): Response
+    public function destroy(TypeServices $typeServices): Response
     {
-        $typeService->delete();
+        $typeServices->delete();
 
         return response()->noContent();
     }

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('service_id')->constrained('services');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('owner_id')->constrained('users');
+            $table->foreignId('applicant')->constrained('users');
             $table->dateTime('date');
             $table->string('status');
             $table->string('periocity');

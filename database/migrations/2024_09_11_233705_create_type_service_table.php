@@ -12,14 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('type_service', function (Blueprint $table) {
+        Schema::create('type_services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
 
         // Insertar valores iniciales
-        DB::table('type_service')->insert([
+        DB::table('type_services')->insert([
             ['name' => 'Barbería'],
             ['name' => 'Estilismo'],
             ['name' => 'Manicura'],
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('type_service');
+        Schema::dropIfExists('type_services');
     }
 };

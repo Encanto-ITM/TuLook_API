@@ -16,7 +16,7 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        $appointments = Appointment::paginate();
+        $appointments = Appointment::all();
 
         return AppointmentResource::collection($appointments);
     }
@@ -55,19 +55,36 @@ class AppointmentController extends Controller
     }
 
     /**
-     * Display a listing of the service for a specified owner.
+     * Display a listing of the appointments for a specified owner.
      */
-    // public function getServicesByOwner($ownerId)
-    // {
-    //     // Obtener todos los beneficios relacionados con el servicio
-    //     $services = Appointment::where('owner_id', $ownerId)->get();
+    public function getAppointmentsByOwner($ownerId)
+    {
+        // Obtener todos los servicios relacionados con el servicio
+        $appointments = Appointment::where('owner_id', $ownerId)->get();
 
-    //     // Retornar los beneficios en formato de recurso
-    //     if ($services->isEmpty()) {
-    //         return response()->json(['message' => 'No se encontraron resultados'], 404);
-    //     }
+        // Retornar los servicios en formato de recurso
+        if ($appointments->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        }
 
-    //     // Retornar los beneficios en formato de recurso
-    //     return AppointmentResource::collection($services);
-    // }
+        // Retornar los servicios en formato de recurso
+        return AppointmentResource::collection($appointments);
+    }
+
+    /**
+     * Display a listing of the appointments for a specified owner.
+     */
+    public function getAppointmentsByUser($user_id)
+    {
+        // Obtener todos los servicios relacionados con el servicio
+        $appointments = Appointment::where('applicant', $user_id)->get();
+
+        // Retornar los servicios en formato de recurso
+        if ($appointments->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        }
+
+        // Retornar los servicios en formato de recurso
+        return AppointmentResource::collection($appointments);
+    }
 }

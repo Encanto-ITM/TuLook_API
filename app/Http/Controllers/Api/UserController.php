@@ -125,8 +125,23 @@ class UserController extends Controller
 
     public function getWorkers(Request $request)
     {
-        // Obtener todos los trabajadores que coincidan con los criterios proporcionados
-        $workers = User::select(
+        return $this->getUsersByAccountType($request, 3, true);
+    }
+
+    public function getOnlyUsers(Request $request)
+    {
+        return $this->getUsersByAccountType($request, 2);
+    }
+
+    public function getOnlyAdmins(Request $request)
+    {
+        return $this->getUsersByAccountType($request, 1, true);
+    }
+
+    private function getUsersByAccountType(Request $request, int $accountTypeId, bool $includeProfession = false)
+    {
+        // Construir la consulta base
+        $query = User::select(
             'users.id', // Calificar el id con el nombre de la tabla
             'users.name',
             'users.lastname',
@@ -134,18 +149,21 @@ class UserController extends Controller
             'users.contact_public',
             'users.contact_number',
             'users.profilephoto',
-            'users.headerphoto',
-            'users.address',
-            'users.description',
-            'professions.id as profession_id',
-            'professions.profession'
-        )
-            ->join('professions', 'users.professions_id', '=', 'professions.id')
-            ->where('is_active', 1)
-            ->where('acounttype_id', 3)
+            'users.headerphoto'
+        );
+
+        // Incluir profesiones si es necesario
+        if ($includeProfession) {
+            $query->join('professions', 'users.professions_id', '=', 'professions.id')
+                ->addSelect('professions.id as profession_id', 'professions.profession');
+        }
+
+        // Aplicar filtros
+        $workers = $query->where('is_active', 1)
+            ->where('acounttype_id', $accountTypeId)
             ->get();
 
-        // Retornar los trabajadores en formato de recurso
+        // Retornar los resultados en formato de recurso
         if ($workers->isEmpty()) {
             return response()->json(['message' => 'No se encontraron resultados'], 404);
         }

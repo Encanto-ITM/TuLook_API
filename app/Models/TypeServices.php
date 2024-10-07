@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class TypeService extends Model
+class TypeServices extends Model
 {
     
     protected $perPage = 20;

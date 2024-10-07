@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\AppointmentController;
 use App\Http\Controllers\Api\ProfessionController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\TypeServiceController;
+use App\Http\Controllers\Api\TypeServicesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,12 +16,17 @@ Route::get('/user', function (Request $request) {
 Route::get('/services/{ownerId}/owner', [ServiceController::class, 'getServicesByOwner']);
 Route::get('/services/search', [ServiceController::class, 'getServicesByName']);
 Route::get('/services/{int}/filtertype', [ServiceController::class, 'getServicesByType']);
+Route::Resource('services', ServiceController::class);
 
+Route::Resource('users', UserController::class);
+Route::get('clients', [UserController::class, 'getOnlyUsers']);
+Route::get('admins', [UserController::class, 'getOnlyAdmins']);
 Route::get('workers', [UserController::class, 'getWorkers']);
 
-Route::apiResource('type-services', TypeServiceController::class);
-Route::Resource('appointments', AppointmentController::class); // filtrar por usuario
+Route::Resource('appointments', AppointmentController::class);
+Route::get('/appointments/{ownerId}/owner', [AppointmentController::class, 'getAppointmentsByOwner']);
+Route::get('/appointments/{clientId}/user', [AppointmentController::class, 'getAppointmentsByUser']);
+
+Route::Resource('type_services', TypeServicesController::class);
 Route::Resource('professions', ProfessionController::class);
 Route::Resource('acounttypes', AcounttypeController::class);
-Route::Resource('services', ServiceController::class);
-Route::Resource('users', UserController::class);
