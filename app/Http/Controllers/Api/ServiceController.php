@@ -16,7 +16,27 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $services = Service::all();
+        $services = Service::select(
+            'services.id', // Especifica la tabla para el id
+            'services.name',
+            'services.price',
+            'services.owner_id',
+            'user.name as owner_name',
+            'user.lastname as owner_lastname',
+            'services.image',
+            'services.details',
+            'services.schedule',
+            'services.material_list',
+            'services.mode',
+            'services.is_active',
+            'services.considerations',
+            'services.aprox_time',
+            'services.type_service_id',
+            'type_services.name as type_service_name'
+        )
+        ->join('type_services', 'services.type_service_id', '=', 'type_services.id')
+        ->join('users as user', 'services.owner_id', '=', 'user.id')
+        ->get();
 
         return ServiceResource::collection($services);
     }
