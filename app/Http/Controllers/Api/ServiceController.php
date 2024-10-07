@@ -16,29 +16,10 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $services = Service::select(
-            'services.id', // Especifica la tabla para el id
-            'services.name',
-            'services.price',
-            'services.owner_id',
-            'user.name as owner_name',
-            'user.lastname as owner_lastname',
-            'services.image',
-            'services.details',
-            'services.schedule',
-            'services.material_list',
-            'services.mode',
-            'services.is_active',
-            'services.considerations',
-            'services.aprox_time',
-            'services.type_service_id',
-            'type_services.name as type_service_name'
-        )
-            ->join('type_services', 'services.type_service_id', '=', 'type_services.id')
-            ->join('users as user', 'services.owner_id', '=', 'user.id')
-            ->get();
+        // Fetch all services
+        $services = $this->fetchServices();
 
-        return ServiceResource::collection($services);
+        return $this->returnServiceResponse($services);
     }
 
     /**
@@ -79,36 +60,12 @@ class ServiceController extends Controller
      */
     public function getServicesByOwner($ownerId)
     {
-        // Obtener todos los beneficios relacionados con el servicio
-        $services = Service::select(
-            'services.id', // Especifica la tabla para el id
-            'services.name',
-            'services.price',
-            'services.owner_id',
-            'user.name as owner_name',
-            'user.lastname as owner_lastname',
-            'services.image',
-            'services.details',
-            'services.schedule',
-            'services.material_list',
-            'services.mode',
-            'services.is_active',
-            'services.considerations',
-            'services.aprox_time',
-            'services.type_service_id',
-            'type_services.name as type_service_name'
-        )
-            ->join('type_services', 'services.type_service_id', '=', 'type_services.id')
-            ->join('users as user', 'services.owner_id', '=', 'user.id')
-            ->get();
+        // Fetch services based on owner ID
+        $services = $this->fetchServices(function ($query) use ($ownerId) {
+            $query->where('services.owner_id', $ownerId);
+        });
 
-        // Retornar los beneficios en formato de recurso
-        if ($services->isEmpty()) {
-            return response()->json(['message' => 'No se encontraron resultados'], 404);
-        }
-
-        // Retornar los beneficios en formato de recurso
-        return ServiceResource::collection($services);
+        return $this->returnServiceResponse($services);
     }
 
     /**
@@ -116,14 +73,39 @@ class ServiceController extends Controller
      */
     public function getServicesByName(Request $request)
     {
-        // Validar el parámetro de búsqueda
+        // Validate the search parameter
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        // Obtener todos los beneficios que coincidan con el nombre proporcionado
-        $services = Service::select(
-            'services.id', // Especifica la tabla para el id
+        // Fetch services based on name
+        $services = $this->fetchServices(function ($query) use ($request) {
+            $query->where('services.name', 'like', '%' . $request->name . '%');
+        });
+
+        return $this->returnServiceResponse($services);
+    }
+
+    /**
+     * Display a listing of the services that match the specified type service.
+     */
+    public function getServicesByType($type_service_id)
+    {
+        // Obtener todos los beneficios relacionados con el servicio
+        $services = Service::where('type_service_id', $type_service_id)->get();
+
+        // Retornar los beneficios en formato de recurso
+        if ($services->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        }
+
+        return ServiceResource::collection($services);
+    }
+
+    private function fetchServices(callable $callback = null)
+    {
+        $query = Service::select(
+            'services.id', // Specify the table for the id
             'services.name',
             'services.price',
             'services.owner_id',
@@ -141,24 +123,19 @@ class ServiceController extends Controller
             'type_services.name as type_service_name'
         )
             ->join('type_services', 'services.type_service_id', '=', 'type_services.id')
-            ->join('users as user', 'services.owner_id', '=', 'user.id')
-            ->get();
+            ->join('users as user', 'services.owner_id', '=', 'user.id');
 
-        // Retornar los beneficios en formato de recurso
-        if ($services->isEmpty()) {
-            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        // Apply additional conditions if provided
+        if ($callback) {
+            $callback($query);
         }
 
-        return ServiceResource::collection($services);
+        return $query->get();
     }
 
-
-    public function getServicesByType($type_service_id)
+    // Private method to return service response
+    private function returnServiceResponse($services)
     {
-        // Obtener todos los beneficios relacionados con el servicio
-        $services = Service::where('type_service_id', $type_service_id)->get();
-
-        // Retornar los beneficios en formato de recurso
         if ($services->isEmpty()) {
             return response()->json(['message' => 'No se encontraron resultados'], 404);
         }
