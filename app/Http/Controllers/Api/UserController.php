@@ -146,6 +146,8 @@ class UserController extends Controller
             'users.name',
             'users.lastname',
             'users.email',
+            'users.description',
+            'users.address',
             'users.contact_public',
             'users.contact_number',
             'users.profilephoto',
