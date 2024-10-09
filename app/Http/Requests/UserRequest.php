@@ -25,15 +25,16 @@ class UserRequest extends FormRequest
 			'name' => 'required|string',
 			'lastname' => 'required|string',
 			'email' => 'required|string',
+            'password' => 'required|string',
 			'contact_number' => 'string',
 			'contact_public' => 'string',
-			'is_active' => 'required|string',
+			'is_active' => 'string',
 			'profilephoto' => 'string',
 			'headerphoto' => 'string',
 			'address' => 'string',
 			'description' => 'string',
-			'acounttype_id' => 'required',
-			'professions_id' => 'required',
+			'acounttype_id' => 'biginteger',
+			'professions_id' => 'biginteger',
         ];
     }
 }

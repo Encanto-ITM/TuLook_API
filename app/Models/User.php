@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Acounttype $acounttype
  * @property Profession $profession
  * @property Appointment[] $appointments
+ * @property Appointment[] $appointments
  * @property Service[] $services
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -43,7 +44,7 @@ class User extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'lastname', 'email', 'contact_number', 'contact_public', 'is_active', 'profilephoto', 'headerphoto', 'address', 'description', 'acounttype_id', 'professions_id'];
+    protected $fillable = ['name', 'lastname', 'email', 'password', 'contact_number', 'contact_public', 'is_active', 'profilephoto', 'headerphoto', 'address', 'description', 'acounttype_id', 'professions_id'];
 
 
     /**
@@ -65,9 +66,17 @@ class User extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function appointments()
+    public function appointmentsOwn()
     {
-        return $this->hasMany(\App\Models\Appointment::class, 'id', 'user_id');
+        return $this->hasMany(\App\Models\Appointment::class, 'id', 'owner_id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function appointmentsApli()
+    {
+        return $this->hasMany(\App\Models\Appointment::class, 'id', 'applicant');
     }
     
     /**

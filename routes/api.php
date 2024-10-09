@@ -18,10 +18,10 @@ Route::get('/services/search', [ServiceController::class, 'getServicesByName']);
 Route::get('/services/{int}/filtertype', [ServiceController::class, 'getServicesByType']);
 Route::Resource('services', ServiceController::class);
 
-Route::Resource('users', UserController::class);
 Route::get('clients', [UserController::class, 'getOnlyUsers']);
 Route::get('admins', [UserController::class, 'getOnlyAdmins']);
 Route::get('workers', [UserController::class, 'getWorkers']);
+Route::apiResource('users', UserController::class);
 
 Route::Resource('appointments', AppointmentController::class);
 Route::get('/appointments/{ownerId}/owner', [AppointmentController::class, 'getAppointmentsByOwner']);

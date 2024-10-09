@@ -16,9 +16,7 @@ class TypeServicesController extends Controller
      */
     public function index(Request $request)
     {
-        $typeServices = TypeServices::all();
-
-        return TypeServicesResource::collection($typeServices);
+        return TypeServices::all();
     }
 
     /**
