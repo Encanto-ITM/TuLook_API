@@ -52,4 +52,24 @@ class UserController extends Controller
 
         return response()->noContent();
     }
+
+    public function getWorkers(Request $request) {
+        $workers = User::where("acounttype_id", 3)->get();
+
+        if ($workers->count() == 0) {
+            return response()->json([
+                "message" => "No workers found",
+            ], 404);
+        }
+
+        return UserResource::collection($workers); 
+    }
+
+    public function getClients(Request $request) {
+        return User::where("acounttype_id", 2)->get();
+    }
+
+    public function getAdmins(Request $request) {
+        return User::where("acounttype_id", 1)->get();
+    }
 }
