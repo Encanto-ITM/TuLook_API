@@ -18,9 +18,9 @@ Route::get('/services/search', [ServiceController::class, 'getServicesByName']);
 Route::get('/services/{int}/filtertype', [ServiceController::class, 'getServicesByType']);
 Route::Resource('services', ServiceController::class);
 
-Route::get('clients', [UserController::class, 'getClients']);
-Route::get('admins', [UserController::class, 'getAdmins']);
-Route::get('workers', [UserController::class, 'getWorkers']);
+// Route::get('clients', [UserController::class, 'getClients']);
+// Route::get('admins', [UserController::class, 'getAdmins']);
+// Route::get('workers', [UserController::class, 'getWorkers']);
 Route::apiResource('users', UserController::class);
 
 Route::Resource('appointments', AppointmentController::class);

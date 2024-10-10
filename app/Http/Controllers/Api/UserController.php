@@ -24,7 +24,6 @@ class UserController extends Controller
      */
     public function store(UserRequest $request): User
     {
-        print_r($request->validated());
         return User::create($request->validated());
     }
 
@@ -53,23 +52,23 @@ class UserController extends Controller
         return response()->noContent();
     }
 
-    public function getWorkers(Request $request) {
-        $workers = User::where("acounttype_id", 3)->get();
+    // public function getWorkers() {
+    //     $workers = User::where("acounttype_id", 3)->get();
 
-        if ($workers->count() == 0) {
-            return response()->json([
-                "message" => "No workers found",
-            ], 404);
-        }
+    //     if ($workers->count() == 0) {
+    //         return response()->json([
+    //             "message" => "No workers found",
+    //         ], 404);
+    //     }
 
-        return UserResource::collection($workers); 
-    }
+    //     return UserResource::collection($workers); 
+    // }
 
-    public function getClients(Request $request) {
-        return User::where("acounttype_id", 2)->get();
-    }
+    // public function getClients() {
+    //     return User::where("acounttype_id", 2)->get();
+    // }
 
-    public function getAdmins(Request $request) {
-        return User::where("acounttype_id", 1)->get();
-    }
+    // public function getAdmins() {
+    //     return User::where("acounttype_id", 1)->get();
+    // }
 }
