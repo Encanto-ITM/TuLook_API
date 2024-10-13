@@ -22,18 +22,18 @@ class ServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'name' => 'required|string',
-			'owner_id' => 'required',
-			'image' => 'string',
-			'price' => 'required|string',
-			'details' => 'required|string',
-			'schedule' => 'required|string',
+			'name' => 'string',
+			'owner_id' => 'biginteger',
+			'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Expecting a image
+			'price' => 'string',
+			'details' => 'string',
+			'schedule' => 'string',
 			'material_list' => 'string',
-			'mode' => 'required',
-			'is_active' => 'required|string',
-			'considerations' => 'required|string',
+			'mode' => 'string',
+			'is_active' => 'string',
+			'considerations' => 'string',
 			'aprox_time' => 'string',
-			'type_service_id' => 'required|string',
+			'type_service_id' => 'biginteger',
         ];
     }
 }

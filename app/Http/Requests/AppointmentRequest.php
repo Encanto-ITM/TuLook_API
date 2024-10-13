@@ -22,12 +22,13 @@ class AppointmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'service_id' => 'required',
-			'user_id' => 'required',
-			'date' => 'required',
-			'status' => 'required|string',
-			'periocity' => 'required|string',
-			'location' => 'required|string',
+			'service_id' => 'biginteger',
+			'user_id' => 'biginteger',
+            'applicant' => 'biginteger',
+			'date' => 'date',
+			'status' => 'string',
+			'periocity' => 'string',
+			'location' => 'string',
         ];
     }
 }
