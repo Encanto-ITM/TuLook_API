@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -70,5 +71,36 @@ class UserController extends Controller
 
     public function getAdmins() {
         return User::where("acounttype_id", 1)->get();
+    }
+
+    protected function findUserByEmail($email)
+    {
+        return User::where('email', $email)->first();
+    }
+
+    public function updatePassword(Request $request): JsonResponse
+    {
+        try {
+            // Validar la entrada
+            $validatedData = $request->validate([
+                'email' => 'required|email|exists:users,email',
+                'password' => 'required|string|min:8|confirmed',
+            ]);
+
+            // Llamar al método auxiliar para encontrar el usuario
+            $user = $this->findUserByEmail($validatedData['email']);
+
+            if ($user) {
+                // Actualizar la contraseña (sin encriptar)
+                $user->password = $validatedData['password']; // Almacenar directamente
+                $user->save(); // Guardar los cambios
+
+                return response()->json(['message' => 'Contrasena actualizada con exito.'], 200);
+            }
+
+            return response()->json(['message' => 'Usuario no encontrado.'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Hubo un problema: ' . $e->getMessage()], 500);
+        }
     }
 }

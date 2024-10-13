@@ -40,6 +40,10 @@
                         <a href="/api/api/workers">/api/workers</a> 
                         <span>→ Accede a todos los trabajadores</span>
                     </li>
+                    <li>
+                        <a href="/api/api/update-password">/api/update-password</a> 
+                        <span>→ Actualiza la contraseña</span>
+                    </li>
                 </ul>
             </div>
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
