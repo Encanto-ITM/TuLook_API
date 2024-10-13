@@ -22,6 +22,7 @@ Route::get('clients', [UserController::class, 'getClients']);
 Route::get('admins', [UserController::class, 'getAdmins']);
 Route::get('workers', [UserController::class, 'getWorkers']);
 Route::apiResource('users', UserController::class);
+Route::post('/users/update-password', [UserController::class, 'updatePassword']);
 
 Route::Resource('appointments', AppointmentController::class);
 Route::get('/appointments/{ownerId}/owner', [AppointmentController::class, 'getAppointmentsByOwner']);
