@@ -22,8 +22,8 @@ class AcounttypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'type' => 'required|string',
-			'detail' => 'required|string',
+			'type' => 'string',
+			'detail' => 'string',
         ];
     }
 }
