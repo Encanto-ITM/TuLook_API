@@ -34,8 +34,8 @@ class UserRequest extends FormRequest
             'headerphoto' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Expecting a image
 			'address' => 'string',
 			'description' => 'string',
-			'acounttype_id' => 'biginteger',
-			'professions_id' => 'biginteger',
+			'acounttype_id' => 'int',
+			'professions_id' => 'int',
         ];
     }
 }
