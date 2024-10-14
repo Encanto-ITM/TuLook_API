@@ -49,8 +49,8 @@
                         <span>→ Accede a todos los trabajadores</span>
                     </li>
                     <li>
-                        ( <span style="color: orange">POST</span> ):
-                        <a href="/api/api/update-password">/api/update-password</a> 
+                        ( <span style="color: green">POST</span> ):
+                        <a href="/api/api/users/update-password">/api/users/update-password</a> 
                         <span>→ Actualiza la contraseña</span>
                     </li>
                 </ul>
