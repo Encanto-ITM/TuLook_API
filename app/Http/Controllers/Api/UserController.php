@@ -128,7 +128,7 @@ class UserController extends Controller
             $req = new Request(['password'=> $request->new_password]);
 
             // Actualiza la contraseña del usuario
-            $user->update($req->all());
+            $user->update($req->validate(['password' => 'string']));
 
             return response()->json(['message' => 'Contraseña actualizada con éxito.'], 200);
         } catch (\Exception $e) {
