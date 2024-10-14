@@ -9,6 +9,10 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Js;
+
+use function Laravel\Prompts\password;
 
 class UserController extends Controller
 {
@@ -47,11 +51,12 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user): User
+    public function update(UserRequest $request, User $user): JsonResponse
     {
-        $user->update($request->validated());
+        return response()->json([$request->validated()], 200);
+        // $user->update($request->validated());
 
-        return $user;
+        // return $user;
     }
 
     public function destroy(User $user): Response
@@ -90,28 +95,44 @@ class UserController extends Controller
     }
 
     public function updatePassword(Request $request): JsonResponse
-    {
-        try {
-            // Validar la entrada
-            $validatedData = $request->validate([
-                'email' => 'required|email|exists:users,email',
-                'password' => 'required|string|confirmed',
-            ]);
+    {   
+        $user = $this->findUserByEmail($request->email);
 
-            // Llamar al método auxiliar para encontrar el usuario
-            $user = $this->findUserByEmail($validatedData['email']);
+        $request->validate([
+            'email' => 'required|email',
+            'old_password' => 'required|string',
+            'new_password' => 'required|string',
+        ]);
 
-            if ($user) {
-                // Actualizar la contraseña (sin encriptar)
-                $user->password = $validatedData['password']; // Almacenar directamente
-                $user->save(); // Guardar los cambios
+        /*
+        *   verificar si el usuario existe
+        *   verificar si la contraseña es correcta
+        *   verificar si la nueva contraseña es igual a la anterior
+        *   actualizar la contraseña
+        */
 
-                return response()->json(['message' => 'Contrasena actualizada con exito.'], 200);
-            }
-
+        if (!$user) {
             return response()->json(['message' => 'Usuario no encontrado.'], 404);
+        }
+
+        if ($request->old_password !== $user->password) {
+            return response()->json(['message' => 'Contraseña incorrecta.'], 401);
+        }
+
+        if ($request->new_password === $user->password) {
+            return response()->json(['message' => 'La nueva contraseña no debe ser igual a la anterior.'], 422);
+        }
+
+        try {
+            // Crea una nueva instancia de la clase Request con la nueva contraseña
+            $req = new Request(['password'=> $request->new_password]);
+
+            // Actualiza la contraseña del usuario
+            $user->update($req->all());
+
+            return response()->json(['message' => 'Contraseña actualizada con éxito.'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Hubo un problema: ' . $e->getMessage()], 500);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 }
