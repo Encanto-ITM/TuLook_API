@@ -71,7 +71,7 @@ class UserController extends Controller
             ], 404);
         }
 
-        return UserResource::collection($workers);
+        return $workers;
     }
 
     public function getClients()
