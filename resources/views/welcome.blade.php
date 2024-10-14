@@ -26,21 +26,30 @@
                 <h2 class="font-weight-bolder">Usuarios</h2><hr>
                 <ul>
                     <li>
-                        <a href="/api/api/users">/api/users</a> <span>→ Accede a todos los usuarios</span>
+                        ( <span style="color: green">C</span>
+                        <span style="color: blue">R</span>
+                        <span style="color: orange">U</span>
+                        <span style="color: red">D</span> ):
+                        <a href="/api/api/users">/api/users</a>
+                        <span>→ Accede a todos los usuarios</span>
                     </li>
                     <li>
+                        ( <span style="color: blue">GET</span> ):
                         <a href="/api/api/admins">/api/admins</a> 
                         <span>→ Accede a todos los administradores</span>
                     </li>
                     <li>
+                        ( <span style="color: blue">GET</span> ):
                         <a href="/api/api/clients">/api/clients</a> 
                         <span>→ Accede a todos los clientes</span>
                     </li>
                     <li>
+                        ( <span style="color: blue">GET</span> ):
                         <a href="/api/api/workers">/api/workers</a> 
                         <span>→ Accede a todos los trabajadores</span>
                     </li>
                     <li>
+                        ( <span style="color: orange">POST</span> ):
                         <a href="/api/api/update-password">/api/update-password</a> 
                         <span>→ Actualiza la contraseña</span>
                     </li>
@@ -50,18 +59,25 @@
                 <h2 class="font-weight-bolder">Servicios</h2><hr>
                 <ul>
                     <li>
+                        ( <span style="color: green">C</span>
+                        <span style="color: blue">R</span>
+                        <span style="color: orange">U</span>
+                        <span style="color: red">D</span> ):
                         <a href="/api/api/services">/api/services</a> 
                         <span>→ Accede a todos los servicios</span>
                     </li>
                     <li>
+                        ( <span style="color: blue">GET</span> ):
                         <a href="/api/api/services/{ownerId}/owner">/api/services/{ownerId}/owner</a> 
                         <span>→ Accede a todos los servicios de un usuario</span>
                     </li>
                     <li>
+                        ( <span style="color: blue">GET</span> ):
                         <a href="/api/api/services/search?name={related_name}">/api/services/search?name={"related_name"}</a>
                         <span>→ Devuelve los servicios que coincidan con el nombre</span>
                     </li>
                     <li>
+                        ( <span style="color: blue">GET</span> ):
                         <a href="/api/api/services/{typeId}/filtertype">/api/services/{typeId}/filtertype</a>
                         <span>→ Devuelve los servicios filtrados por tipo</span>
                     </li>
@@ -71,14 +87,20 @@
                 <h2 class="font-weight-bolder">Citas</h2><hr>
                 <ul>
                     <li>
+                        ( <span style="color: green">C</span>
+                        <span style="color: blue">R</span>
+                        <span style="color: orange">U</span>
+                        <span style="color: red">D</span> ):
                         <a href="/api/api/appointments">/api/appointments</a> 
                         <span>→ Accede a todas las citas</span>
                     </li>
                     <li>
+                        ( <span style="color: blue">GET</span> ):
                         <a href="/api/api/appointments/{ownerId}/owner">/api/appointments/{ownerId}/owner</a> 
                         <span>→ Accede a todas las citas de un emprendedor</span>
                     </li>
                     <li>
+                        ( <span style="color: blue">GET</span> ):
                         <a href="/api/api/appointments/{clientId}/client">/api/appointments/{clientId}/client</a> 
                         <span>→ Accede a todas las citas de un cliente</span>
                     </li>
@@ -88,14 +110,26 @@
                 <h2 class="font-weight-bolder">Otros</h2><hr>
                 <ul>
                     <li>
+                        ( <span style="color: green">C</span>
+                        <span style="color: blue">R</span>
+                        <span style="color: orange">U</span>
+                        <span style="color: red">D</span> ):
                        <a href="/api/api/type_services">/api/type_services</a>
                         <span>→ Accede a todos los tipos de servicio</span>
                     </li>
                     <li>
+                        ( <span style="color: green">C</span>
+                        <span style="color: blue">R</span>
+                        <span style="color: orange">U</span>
+                        <span style="color: red">D</span> ):
                         <a href="/api/api/professions">/api/professions</a>
                         <span>→ Accede a todas las profesiones</span>
                     </li>
                     <li>
+                        ( <span style="color: green">C</span>
+                        <span style="color: blue">R</span>
+                        <span style="color: orange">U</span>
+                        <span style="color: red">D</span> ):
                         <a href="/api/api/acounttypes">/api/acounttypes</a>
                         <span>→ Accede a todos los tipos de cuenta</span>
                     </li>
