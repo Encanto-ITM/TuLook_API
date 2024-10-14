@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property $id
  * @property $service_id
- * @property $user_id
+ * @property $owner_id
+ * @property $applicant
  * @property $date
  * @property $status
  * @property $periocity
@@ -32,7 +33,7 @@ class Appointment extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['service_id', 'user_id', 'date', 'status', 'periocity', 'location'];
+    protected $fillable = ['service_id', 'owner_id', 'date', 'status', 'periocity', 'location', 'applicant'];
 
 
     /**
@@ -48,7 +49,7 @@ class Appointment extends Model
      */
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
+        return $this->belongsTo(\App\Models\User::class, 'owner_id', 'id');
     }
     
 }

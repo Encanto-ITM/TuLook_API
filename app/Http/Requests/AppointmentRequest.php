@@ -22,9 +22,9 @@ class AppointmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'service_id' => 'biginteger',
-			'user_id' => 'biginteger',
-            'applicant' => 'biginteger',
+			'service_id' => 'int',
+			'owner_id' => 'int',
+            'applicant' => 'int',
 			'date' => 'date',
 			'status' => 'string',
 			'periocity' => 'string',

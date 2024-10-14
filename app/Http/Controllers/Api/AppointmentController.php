@@ -18,7 +18,11 @@ class AppointmentController extends Controller
     {
         $appointments = Appointment::all();
 
-        return AppointmentResource::collection($appointments);
+        if ($appointments->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
+        }
+        
+        return $appointments;
     }
 
     /**

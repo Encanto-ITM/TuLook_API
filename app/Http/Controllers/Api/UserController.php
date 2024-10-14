@@ -17,7 +17,15 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        return User::all();
+        $user = User::all();
+
+        if ($user->count() == 0) {
+            return response()->json([
+                "message" => "No se encontraron resultados",
+            ], 404);
+        }
+
+        return $user;
     }
 
     /**
@@ -32,7 +40,7 @@ class UserController extends Controller
      * Display the specified resource.
      */
     public function show(User $user): User
-    {
+    {   
         return $user;
     }
 
@@ -53,7 +61,8 @@ class UserController extends Controller
         return response()->noContent();
     }
 
-    public function getWorkers() {
+    public function getWorkers()
+    {
         $workers = User::where("acounttype_id", 3)->get();
 
         if ($workers->count() == 0) {
@@ -62,14 +71,16 @@ class UserController extends Controller
             ], 404);
         }
 
-        return UserResource::collection($workers); 
+        return UserResource::collection($workers);
     }
 
-    public function getClients() {
+    public function getClients()
+    {
         return User::where("acounttype_id", 2)->get();
     }
 
-    public function getAdmins() {
+    public function getAdmins()
+    {
         return User::where("acounttype_id", 1)->get();
     }
 
@@ -84,7 +95,7 @@ class UserController extends Controller
             // Validar la entrada
             $validatedData = $request->validate([
                 'email' => 'required|email|exists:users,email',
-                'password' => 'required|string|min:8|confirmed',
+                'password' => 'required|string|confirmed',
             ]);
 
             // Llamar al método auxiliar para encontrar el usuario

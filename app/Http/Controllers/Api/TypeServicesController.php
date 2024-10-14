@@ -16,6 +16,15 @@ class TypeServicesController extends Controller
      */
     public function index(Request $request)
     {
+        $typeServices = TypeServices::all();
+
+        if ($typeServices->count() == 0) {
+            return response()->json([
+                "message" => "No se encontraron resultados",
+            ], 404);
+        }
+            
+        
         return TypeServices::all();
     }
 

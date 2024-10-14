@@ -16,10 +16,7 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        // Fetch all services
-        $services = $this->fetchServices();
-
-        return $this->returnServiceResponse($services);
+        return Service::all();
     }
 
     /**

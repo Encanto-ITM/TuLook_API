@@ -23,7 +23,7 @@ class ServiceRequest extends FormRequest
     {
         return [
 			'name' => 'string',
-			'owner_id' => 'biginteger',
+			'owner_id' => 'int',
 			'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Expecting a image
 			'price' => 'string',
 			'details' => 'string',
@@ -33,7 +33,7 @@ class ServiceRequest extends FormRequest
 			'is_active' => 'string',
 			'considerations' => 'string',
 			'aprox_time' => 'string',
-			'type_service_id' => 'biginteger',
+			'type_service_id' => 'int',
         ];
     }
 }
