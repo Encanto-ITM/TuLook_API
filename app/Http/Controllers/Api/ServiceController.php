@@ -8,6 +8,9 @@ use App\Http\Requests\ServiceRequest;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ServiceResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\Casts\Json;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class ServiceController extends Controller
 {
@@ -33,13 +36,14 @@ class ServiceController extends Controller
     public function show(Service $service): Service
     {
         return $service;
+
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(ServiceRequest $request, Service $service): Service
-    {
+    {   
         $service->update($request->validated());
 
         return $service;

@@ -24,13 +24,12 @@ class ServiceRequest extends FormRequest
         return [
 			'name' => 'string',
 			'owner_id' => 'int',
-			'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Expecting a image
-			'price' => 'string',
+            'image' => 'string', // Expecting a image
+			'price' => 'int',
 			'details' => 'string',
 			'schedule' => 'string',
 			'material_list' => 'string',
-			'mode' => 'string',
-			'is_active' => 'string',
+			'is_active' => 'int',
 			'considerations' => 'string',
 			'aprox_time' => 'string',
 			'type_service_id' => 'int',

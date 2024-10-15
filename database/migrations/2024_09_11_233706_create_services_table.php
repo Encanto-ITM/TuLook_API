@@ -16,15 +16,14 @@ return new class extends Migration
             $table->string('name')->nullable(false);
             $table->foreignId('owner_id')->constrained('users');
             $table->string('image')->nullable(true);
-            $table->string('price')->nullable(false);
+            $table->integer('price')->nullable(false);
             $table->string('details')->nullable(false);
             $table->string('schedule')->nullable(false)->default("Lunes a viernes");
             $table->string('material_list')->nullable(true);
-            $table->enum('mode', ['Solo local', 'Voy al lugar', 'Ambos servicios'])->default('Voy al lugar');
-            $table->string('is_active')->default(1);
+            $table->integer('is_active')->default(1);
             $table->string('considerations')->nullable(false);
             $table->string('aprox_time')->nullable(true);
-            $table->string('type_service_id')->constrained('type_service')->noActionOnDelete();
+            $table->integer('type_service_id')->constrained('type_services')->noActionOnDelete();
             $table->timestamps();
         });
     }
