@@ -138,27 +138,27 @@
                 <h2 class="font-weight-bolder">JWT-login/logout</h2><hr>
                 <ul>
                     <li>
-                        ( <span style="color: green">Post</span> ):
+                        ( <span style="color: green">POST</span> ):
                        <a href="/api/api/auth/register">/api/auth/register</a>
                         <span>→ Registra un usuario</span>
                     </li>
                     <li>
-                        ( <span style="color: green">Post</span> ):
+                        ( <span style="color: green">POST</span> ):
                         <a href="/api/api/auth/login">/api/auth/login</a>
                         <span>→ Inicia sesión</span>
                     </li>
                     <li>
-                        ( <span style="color: green">Post</span> ):
+                        ( <span style="color: green">POST</span> ):
                         <a href="/api/api/auth/me">/api/auth/me</a>
                         <span>→ Obtiene los datos del usuario loggeado con el JWT</span>
                     </li>
                     <li>
-                        ( <span style="color: green">Post</span> ):
+                        ( <span style="color: green">POST</span> ):
                         <a href="/api/api/auth/refresh">/api/auth/refresh</a>
                         <span>→ Renueva el JWT</span>
                     </li>
                     <li>
-                        ( <span style="color: green">Post</span> ):
+                        ( <span style="color: green">POST</span> ):
                         <a href="/api/api/auth/logout">/api/auth/logout</a>
                         <span>→ Cierra la sesión</span>
                     </li>
