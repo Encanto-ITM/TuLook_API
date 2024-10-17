@@ -3,6 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 
 /**
@@ -35,9 +40,9 @@ use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class User extends Model
+class User extends Authenticatable implements JWTSubject
 {
-    
+    use HasFactory, Notifiable;
     protected $perPage = 20;
 
     /**
@@ -47,6 +52,49 @@ class User extends Model
      */
     protected $fillable = ['name', 'lastname', 'email', 'password', 'contact_number', 'contact_public', 'is_active', 'profilephoto', 'headerphoto', 'address', 'description', 'acounttype_id', 'professions_id'];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -55,7 +103,7 @@ class User extends Model
     {
         return $this->belongsTo(\App\Models\Acounttype::class, 'acounttype_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -63,7 +111,7 @@ class User extends Model
     {
         return $this->belongsTo(\App\Models\Profession::class, 'professions_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -71,7 +119,7 @@ class User extends Model
     {
         return $this->hasMany(\App\Models\Appointment::class, 'id', 'owner_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -79,7 +127,7 @@ class User extends Model
     {
         return $this->hasMany(\App\Models\Appointment::class, 'id', 'applicant');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -87,5 +135,4 @@ class User extends Model
     {
         return $this->hasMany(\App\Models\Service::class, 'id', 'owner_id');
     }
-    
 }
