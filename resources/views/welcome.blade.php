@@ -26,8 +26,7 @@
                 <h2 class="font-weight-bolder">Usuarios</h2><hr>
                 <ul>
                     <li>
-                        ( <span style="color: green">C</span>
-                        <span style="color: blue">R</span>
+                        ( <span style="color: blue">R</span>
                         <span style="color: orange">U</span>
                         <span style="color: red">D</span> ):
                         <a href="/api/api/users">/api/users</a>
@@ -132,6 +131,36 @@
                         <span style="color: red">D</span> ):
                         <a href="/api/api/acounttypes">/api/acounttypes</a>
                         <span>→ Accede a todos los tipos de cuenta</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
+                <h2 class="font-weight-bolder">JWT-login/logout</h2><hr>
+                <ul>
+                    <li>
+                        ( <span style="color: green">Post</span> ):
+                       <a href="/api/api/auth/register">/api/auth/register</a>
+                        <span>→ Registra un usuario</span>
+                    </li>
+                    <li>
+                        ( <span style="color: green">Post</span> ):
+                        <a href="/api/api/auth/login">/api/auth/login</a>
+                        <span>→ Inicia sesión</span>
+                    </li>
+                    <li>
+                        ( <span style="color: green">Post</span> ):
+                        <a href="/api/api/auth/me">/api/auth/me</a>
+                        <span>→ Obtiene los datos del usuario loggeado con el JWT</span>
+                    </li>
+                    <li>
+                        ( <span style="color: green">Post</span> ):
+                        <a href="/api/api/auth/refresh">/api/auth/refresh</a>
+                        <span>→ Renueva el JWT</span>
+                    </li>
+                    <li>
+                        ( <span style="color: green">Post</span> ):
+                        <a href="/api/api/auth/logout">/api/auth/logout</a>
+                        <span>→ Cierra la sesión</span>
                     </li>
                 </ul>
             </div>
