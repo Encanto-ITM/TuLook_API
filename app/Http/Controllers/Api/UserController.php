@@ -7,12 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Js;
-
-use function Laravel\Prompts\password;
 
 class UserController extends Controller
 {
@@ -35,9 +30,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request): User
+    public function store(UserRequest $request): User|JsonResponse
     {
-        return User::create($request->validated());
+        // return User::create($request->validated());
+        return response()->json(['message' => 'Este metodo ya no esta disponible'], 404);
     }
 
     /**
