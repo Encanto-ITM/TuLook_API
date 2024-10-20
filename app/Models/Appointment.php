@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $applicant
  * @property $date
  * @property $status
- * @property $periocity
+ * @property $total
  * @property $location
  * @property $created_at
  * @property $updated_at
@@ -33,7 +33,7 @@ class Appointment extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['service_id', 'owner_id', 'date', 'status', 'periocity', 'location', 'applicant'];
+    protected $fillable = ['service_id', 'owner_id', 'date', 'status', 'total', 'location', 'applicant'];
 
 
     /**

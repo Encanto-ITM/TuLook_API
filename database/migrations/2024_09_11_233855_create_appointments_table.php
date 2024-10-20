@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('owner_id')->constrained('users');
             $table->foreignId('applicant')->constrained('users');
             $table->dateTime('date');
-            $table->string('status');
-            $table->string('periocity');
+            $table->enum ('status', ['Pendiente', 'Aceptado', 'Modificado', 'Cancelado'])->default('Pendiente');
+            $table->integer('total');
             $table->string('location');
             $table->timestamps();
         });

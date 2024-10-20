@@ -27,7 +27,7 @@ class AppointmentRequest extends FormRequest
             'applicant' => 'int',
 			'date' => 'date',
 			'status' => 'string',
-			'periocity' => 'string',
+			'total' => 'int',
 			'location' => 'string',
         ];
     }
