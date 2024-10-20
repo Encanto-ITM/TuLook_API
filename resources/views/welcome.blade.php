@@ -23,7 +23,8 @@
     <section class="">
         <div class="row gap-2 justify-content-center">
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
-                <h2 class="font-weight-bolder">Usuarios</h2><hr>
+                <h2 class="font-weight-bolder">Usuarios</h2>
+                <hr>
                 <ul>
                     <li>
                         ( <span style="color: blue">R</span>
@@ -34,45 +35,42 @@
                     </li>
                     <li>
                         ( <span style="color: blue">GET</span> ):
-                        <a href="/api/api/admins">/api/admins</a> 
+                        <a href="/api/api/admins">/api/admins</a>
                         <span>→ Accede a todos los administradores</span>
                     </li>
                     <li>
                         ( <span style="color: blue">GET</span> ):
-                        <a href="/api/api/clients">/api/clients</a> 
+                        <a href="/api/api/clients">/api/clients</a>
                         <span>→ Accede a todos los clientes</span>
                     </li>
                     <li>
                         ( <span style="color: blue">GET</span> ):
-                        <a href="/api/api/workers">/api/workers</a> 
+                        <a href="/api/api/workers">/api/workers</a>
                         <span>→ Accede a todos los trabajadores</span>
-                    </li>
-                    <li>
-                        ( <span style="color: green">POST</span> ):
-                        <a href="/api/api/users/update-password">/api/users/update-password</a> 
-                        <span>→ Actualiza la contraseña</span>
                     </li>
                 </ul>
             </div>
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
-                <h2 class="font-weight-bolder">Servicios</h2><hr>
+                <h2 class="font-weight-bolder">Servicios</h2>
+                <hr>
                 <ul>
                     <li>
                         ( <span style="color: green">C</span>
                         <span style="color: blue">R</span>
                         <span style="color: orange">U</span>
                         <span style="color: red">D</span> ):
-                        <a href="/api/api/services">/api/services</a> 
+                        <a href="/api/api/services">/api/services</a>
                         <span>→ Accede a todos los servicios</span>
                     </li>
                     <li>
                         ( <span style="color: blue">GET</span> ):
-                        <a href="/api/api/services/{ownerId}/owner">/api/services/{ownerId}/owner</a> 
+                        <a href="/api/api/services/{ownerId}/owner">/api/services/{ownerId}/owner</a>
                         <span>→ Accede a todos los servicios de un usuario</span>
                     </li>
                     <li>
                         ( <span style="color: blue">GET</span> ):
-                        <a href="/api/api/services/search?name={related_name}">/api/services/search?name={"related_name"}</a>
+                        <a
+                            href="/api/api/services/search?name={related_name}">/api/services/search?name={"related_name"}</a>
                         <span>→ Devuelve los servicios que coincidan con el nombre</span>
                     </li>
                     <li>
@@ -83,37 +81,39 @@
                 </ul>
             </div>
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
-                <h2 class="font-weight-bolder">Citas</h2><hr>
+                <h2 class="font-weight-bolder">Citas</h2>
+                <hr>
                 <ul>
                     <li>
                         ( <span style="color: green">C</span>
                         <span style="color: blue">R</span>
                         <span style="color: orange">U</span>
                         <span style="color: red">D</span> ):
-                        <a href="/api/api/appointments">/api/appointments</a> 
+                        <a href="/api/api/appointments">/api/appointments</a>
                         <span>→ Accede a todas las citas</span>
                     </li>
                     <li>
                         ( <span style="color: blue">GET</span> ):
-                        <a href="/api/api/appointments/{ownerId}/owner">/api/appointments/{ownerId}/owner</a> 
+                        <a href="/api/api/appointments/{ownerId}/owner">/api/appointments/{ownerId}/owner</a>
                         <span>→ Accede a todas las citas de un emprendedor</span>
                     </li>
                     <li>
                         ( <span style="color: blue">GET</span> ):
-                        <a href="/api/api/appointments/{clientId}/client">/api/appointments/{clientId}/client</a> 
+                        <a href="/api/api/appointments/{clientId}/client">/api/appointments/{clientId}/client</a>
                         <span>→ Accede a todas las citas de un cliente</span>
                     </li>
                 </ul>
             </div>
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
-                <h2 class="font-weight-bolder">Otros</h2><hr>
+                <h2 class="font-weight-bolder">Otros</h2>
+                <hr>
                 <ul>
                     <li>
                         ( <span style="color: green">C</span>
                         <span style="color: blue">R</span>
                         <span style="color: orange">U</span>
                         <span style="color: red">D</span> ):
-                       <a href="/api/api/type_services">/api/type_services</a>
+                        <a href="/api/api/type_services">/api/type_services</a>
                         <span>→ Accede a todos los tipos de servicio</span>
                     </li>
                     <li>
@@ -135,11 +135,12 @@
                 </ul>
             </div>
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
-                <h2 class="font-weight-bolder">JWT-login/logout</h2><hr>
+                <h2 class="font-weight-bolder">JWT-login/logout</h2>
+                <hr>
                 <ul>
                     <li>
                         ( <span style="color: green">POST</span> ):
-                       <a href="/api/api/auth/register">/api/auth/register</a>
+                        <a href="/api/api/auth/register">/api/auth/register</a>
                         <span>→ Registra un usuario</span>
                     </li>
                     <li>
@@ -161,6 +162,11 @@
                         ( <span style="color: green">POST</span> ):
                         <a href="/api/api/auth/logout">/api/auth/logout</a>
                         <span>→ Cierra la sesión</span>
+                    </li>
+                    <li>
+                        ( <span style="color: green">POST</span> ):
+                        <a href="/api/api/auth/update-password">/api/auth/update-password</a>
+                        <span>→ Actualiza la contraseña</span>
                     </li>
                 </ul>
             </div>
