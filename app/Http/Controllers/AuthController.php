@@ -6,11 +6,12 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-
     /**
      * Register a User.
      *
@@ -97,5 +98,83 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
+    }
+
+    /**
+     * Find user by email.
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     * 
+     */
+    protected function findUserByEmail($email)
+    {
+        return User::where('email', $email)->first();
+    }
+
+    /**
+     * Update password.
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     * 
+     */
+    public function updatePassword(UserRequest $request): User|JsonResponse
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'old_password' => 'required|string',
+            'new_password' => 'required|string',
+        ]);
+
+        /*
+        *   verificar si el usuario existe
+        */
+        $user = $this->findUserByEmail($request->email);
+
+        if (!$user) {
+            return response()->json(['message' => 'Usuario no encontrado.'], 404);
+        }
+
+        /*
+        *   verificar si el token es de un usuario loggeado
+        */
+        if (auth()->user()->email == null) {
+            return response()->json(['message' => 'Acceso denegado.'], 401);
+        }
+
+        $userLog = auth()->user()->email;
+
+        /*
+        *   verificar si el usuario loggeado y el que modifica la contraseña es el mismo 
+        */
+        if ($user->email != $userLog) {
+            return response()->json(['message' => 'Acceso denegado.'], 401);
+        }
+
+        /*
+        *   verificar si la contraseña es correcta
+        */
+        if (! Hash::check($request->old_password, $user->password)) {
+            return response()->json(['message' => 'Contraseña incorrecta.'], status: 401);
+        }
+
+        /*
+        *   verificar si la nueva contraseña es igual a la anterior
+        */
+        if (Hash::check($request->new_password, $user->password)) {
+            return response()->json(['message' => 'La nueva contraseña no debe ser igual a la anterior.'], 422);
+        }
+
+        /*
+        *   actualizar la contraseña
+        */
+        try {
+            // Crea una nueva instancia de la clase Request con la nueva contraseña
+            $user->password = (string) bcrypt($request->new_password);
+            // Actualiza la contraseña del usuario
+            $user->save();
+            return response()->json(['message' => 'Contraseña actualizada con éxito.'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }

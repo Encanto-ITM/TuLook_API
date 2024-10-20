@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
 use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -40,18 +40,20 @@ class UserController extends Controller
      * Display the specified resource.
      */
     public function show(User $user): User
-    {   
+    {
         return $user;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user): User
+    public function update(UserRequest $request, User $user): JsonResponse
     {
-        $user->update($request->validated());
+        return response()->json([$request->all()], 205);
 
-        return $user;
+        // $user->update($request->validated());
+
+        // return $user;
     }
 
     public function destroy(User $user): Response
@@ -82,52 +84,5 @@ class UserController extends Controller
     public function getAdmins()
     {
         return User::where("acounttype_id", 1)->get();
-    }
-
-    protected function findUserByEmail($email)
-    {
-        return User::where('email', $email)->first();
-    }
-
-    public function updatePassword(Request $request): JsonResponse
-    {   
-        $user = $this->findUserByEmail($request->email);
-
-        $request->validate([
-            'email' => 'required|email',
-            'old_password' => 'required|string',
-            'new_password' => 'required|string',
-        ]);
-
-        /*
-        *   verificar si el usuario existe
-        *   verificar si la contraseña es correcta
-        *   verificar si la nueva contraseña es igual a la anterior
-        *   actualizar la contraseña
-        */
-
-        if (!$user) {
-            return response()->json(['message' => 'Usuario no encontrado.'], 404);
-        }
-
-        if ($request->old_password !== $user->password) {
-            return response()->json(['message' => 'Contraseña incorrecta.'], 401);
-        }
-
-        if ($request->new_password === $user->password) {
-            return response()->json(['message' => 'La nueva contraseña no debe ser igual a la anterior.'], 422);
-        }
-
-        try {
-            // Crea una nueva instancia de la clase Request con la nueva contraseña
-            $req = new Request(['password'=> $request->new_password]);
-
-            // Actualiza la contraseña del usuario
-            $user->update($req->validate(['password' => 'string']));
-
-            return response()->json(['message' => 'Contraseña actualizada con éxito.'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
     }
 }

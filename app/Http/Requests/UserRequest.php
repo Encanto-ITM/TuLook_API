@@ -30,8 +30,8 @@ class UserRequest extends FormRequest
 			'contact_number' => 'string',
 			'contact_public' => 'string',
 			'is_active' => 'string',
-            'profilephoto' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Expecting a image
-            'headerphoto' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Expecting a image
+            'profilephoto' => 'mimes:jpeg,png,jpg,webp|max:5120', // Expecting a image
+            'headerphoto' => 'mimes:jpeg,png,jpg,webp|max:5120', // Expecting a image
 			'address' => 'string',
 			'description' => 'string',
 			'acounttype_id' => 'int',
