@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ProfessionController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\PruebasController;
 use App\Http\Controllers\Api\TypeServicesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,8 @@ Route::group([
     Route::post('/me', [AuthController::class, 'me'])->middleware('auth:api')->name('me');
     Route::post('/update-password', [AuthController::class, 'updatePassword']);
 });
+
+Route::Resource('prueba/imagenes', PruebasController::class);
 
 Route::get('/services/{ownerId}/owner', [ServiceController::class, 'getServicesByOwner']);
 Route::get('/services/search', [ServiceController::class, 'getServicesByName']);
