@@ -40,7 +40,7 @@ class PruebasController extends Controller
             // $uploadedImage = Cloudinary::upload($image->getRealPath(), ['folder' => 'profilephotos']);
             // $publicId = $uploadedImage->getPublicId();
             // cloudinary()->getUrl($publicId);
-            $image->move(public_path('images'), $name);
+            $image->move(public_path('profilepics'), $name);
             return response()->json(['Message' => 'Image uploaded successfully'], 200);
         }
 
