@@ -75,9 +75,9 @@ class ServiceController extends Controller
     public function getServicesByName(Request $request)
     {
         // Validate the search parameter
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        if ($request->name === null) {
+            return ServiceResource::collection(Service::all());
+        }
 
         // Fetch services based on name
         $services = $this->fetchServices(function ($query) use ($request) {
@@ -108,19 +108,18 @@ class ServiceController extends Controller
         $query = Service::select(
             'services.id', // Specify the table for the id
             'services.name',
-            'services.price',
             'services.owner_id',
-            'user.name as owner_name',
-            'user.lastname as owner_lastname',
             'services.image',
+            'services.price',
             'services.details',
             'services.schedule',
             'services.material_list',
-            'services.mode',
             'services.is_active',
             'services.considerations',
             'services.aprox_time',
             'services.type_service_id',
+            'user.name as owner_name',
+            'user.lastname as owner_lastname',
             'type_services.name as type_service_name'
         )
             ->join('type_services', 'services.type_service_id', '=', 'type_services.id')
