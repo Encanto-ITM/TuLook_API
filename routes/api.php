@@ -25,6 +25,7 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:api')->name('refresh');
     Route::post('/me', [AuthController::class, 'me'])->middleware('auth:api')->name('me');
     Route::post('/update-password', [AuthController::class, 'updatePassword']);
+    Route::post('/recover-password', [AuthController::class, 'recoverPassword']);
 });
 
 Route::Resource('prueba/imagenes', PruebasController::class);

@@ -47,13 +47,13 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user): JsonResponse
+    public function update(UserRequest $request, User $user): User|JsonResponse
     {
-        return response()->json([$request->all()], 205);
+        // return response()->json([$request->all()], 205);
 
-        // $user->update($request->validated());
+        $user->update($request->validated());
 
-        // return $user;
+        return $user;
     }
 
     public function destroy(User $user): Response

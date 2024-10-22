@@ -37,14 +37,13 @@ class PruebasController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $name = time() . '.' . $image->getClientOriginalExtension();
-            // $uploadedImage = Cloudinary::upload($image->getRealPath(), ['folder' => 'profilephotos']);
-            // $publicId = $uploadedImage->getPublicId();
-            // cloudinary()->getUrl($publicId);
             $image->move(public_path('profilepics'), $name);
-            return response()->json(['Message' => 'Image uploaded successfully'], 200);
-        }
 
-        dd($request->all());
+            $imageUrl = "/profilepics/$name";
+
+            return response()->json(['imageUrl' => $imageUrl], 200);
+        }
+        return response()->json(['Message' => 'Image uploaded successfully', ], 200);
     }
 
     /**

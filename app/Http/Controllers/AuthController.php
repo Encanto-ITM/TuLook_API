@@ -6,9 +6,12 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use App\Mail\PasswordRecoveryMail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
+use Mail;
+use Str;
 
 class AuthController extends Controller
 {
@@ -175,6 +178,29 @@ class AuthController extends Controller
             return response()->json(['message' => 'Contraseña actualizada con éxito.'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /*
+    *   Recuperar contraseña
+    */
+    public function recoverPassword(UserRequest $request): JsonResponse
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = $this->findUserByEmail($request->email);
+
+        if ($user) {
+            $temp_password = Str::random(8);
+            $user->password = bcrypt($temp_password);
+            $user->save();
+
+            // Mail::to($user->email)->send(new PasswordRecoveryMail($temp_password));
+            return response()->json(['message' => 'Se ha enviado un correo.'], 200);
+        } else {
+            return response()->json(['message' => 'Usuario no encontrado.'], 404);
         }
     }
 }
