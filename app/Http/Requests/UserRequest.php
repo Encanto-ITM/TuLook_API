@@ -33,6 +33,12 @@ class UserRequest extends FormRequest
             'profilephoto' => 'mimes:jpeg,png,jpg,webp|max:5120', // Expecting a image
             'headerphoto' => 'mimes:jpeg,png,jpg,webp|max:5120', // Expecting a image
 			'address' => 'string',
+            'facebook' => 'string',
+            'instagram' => 'string',
+            'twitter' => 'string',
+            'x' => 'string',
+            'linkedin' => 'string',
+            'whatsapp' => 'string',
 			'description' => 'string',
 			'acounttype_id' => 'int',
 			'professions_id' => 'int',

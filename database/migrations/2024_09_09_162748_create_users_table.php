@@ -18,6 +18,12 @@ return new class extends Migration
             $table->string('email')->unique()->nullable(false);
             $table->string('password')->required()->nullable(false);
             $table->timestamp('email_verified_at')->nullable(true);
+            $table->string('facebook')->nullable(true)->default('No registrado');
+            $table->string('instagram')->nullable(true)->default('No registrado');
+            $table->string('x')->nullable(true)->default('No registrado');
+            $table->string('tiktok')->nullable(true)->default('No registrado');
+            $table->string('linkedin')->nullable(true)->default('No registrado');
+            $table->string('whatsapp')->nullable(true)->default('No registrado');
             $table->string('contact_number')->unique()->nullable(true);
             $table->string('contact_public')->nullable(true)->default(0);
             $table->string('is_active')->default(1);
