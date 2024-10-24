@@ -19,8 +19,11 @@ RUN apt-get update && apt-get install -y zip unzip && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
     php -r "unlink('composer-setup.php');"
 
+# Create vendor directory 
+RUN mkdir vendor
+
 # Install dependencies
-RUN cd && cd /app && composer install
+RUN composer install
 # RUN composer install --no-dev && composer --version
 
 # Set command to run web server
