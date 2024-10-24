@@ -187,7 +187,7 @@ class AuthController extends Controller
     public function recoverPassword(UserRequest $request): JsonResponse
     {
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|exists:users,email',
         ]);
 
         $user = $this->findUserByEmail($request->email);

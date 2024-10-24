@@ -1,0 +1,74 @@
+networks:
+  tulook:
+    driver: bridge
+
+services:
+  tulook_api:
+    build: 
+      context: . 
+      dockerfile: Dockerfile
+    container_name: TuLook_Api
+    restart: always
+    networks:
+      - tulook
+    environment:
+      - APP_NAME=TuLook_API
+      - APP_ENV=local
+      - APP_KEY=base64:t6BPvxple6iuJIDtx1eQVBlfZqJCebncJ8ZpU1IOp2Y=
+      - APP_DEBUG=true
+      - APP_TIMEZONE=UTC
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=tulook_db
+      - DB_USERNAME=admin
+      - DB_PASSWORD=Encantoparatodos
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=smtp.googlemail.com
+      - MAIL_PORT=465
+      - MAIL_USERNAME=encantoITM@gmail.com
+      - MAIL_PASSWORD=Encantoparatodos
+      - MAIL_ENCRYPTION=ssl
+      - MAIL_FROM_ADDRESS=encantoITM@gmail.com
+      - MAIL_FROM_NAME="${APP_NAME}"
+      - VITE_APP_NAME="${APP_NAME}"
+      - JWT_SECRET=ucmNHSkFCwsBET0oQdZyS42aLCVXCO9xQZxApPw0HheAiBTsxheE9u5vIijET8RA
+      - JWT_ALGO=HS256
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+      
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    networks:
+      - tulook
+    environment:
+      - MYSQL_ROOT_PASSWORD=Encantoparatodos
+      - MYSQL_DATABASE=tulook_db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=Encantoparatodos
+    ports:
+      - 3307:3306
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    networks:
+      - tulook
+    ports:
+      - 8081:80
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=admin
+      - PMA_PASSWORD=Encantoparatodos
+    depends_on:
+      - mysql
