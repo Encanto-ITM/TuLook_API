@@ -1,12 +1,6 @@
 # Utiliza la imagen oficial de PHP 8.3 como base
 FROM php:8.3.7-fpm
 
-# Instala Composer
-# RUN apt-get update && apt-get install -y zip unzip && \
-#     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-#     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
-#     php -r "unlink('composer-setup.php');"
-
 # Instala el driver de MySQL y extensiones necesarias para JWT
 RUN docker-php-ext-install pdo pdo_mysql
 
@@ -21,10 +15,19 @@ WORKDIR /app
 COPY . /app
 
 # Instala Composer (si no está en tu imagen base)
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Instala Composer
+RUN apt-get update && apt-get install -y zip unzip && \
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
+    php -r "unlink('composer-setup.php');"
 
 # Instala las dependencias
-RUN composer install
+# RUN composer install
+
+# Instala las dependencias
+RUN composer install --no-dev --optimize-autoloader
 
 # Configura el entorno de ejecución
 # COPY .env /app/.env
