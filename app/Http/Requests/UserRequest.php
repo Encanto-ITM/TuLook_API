@@ -37,6 +37,7 @@ class UserRequest extends FormRequest
             'instagram' => 'string',
             'twitter' => 'string',
             'x' => 'string',
+            'tiktok' => 'string',
             'linkedin' => 'string',
             'whatsapp' => 'string',
 			'description' => 'string',
