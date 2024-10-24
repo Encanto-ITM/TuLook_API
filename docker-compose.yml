@@ -37,6 +37,7 @@ services:
       - JWT_ALGO=HS256
     ports:
       - 8080:8080
+    command: composer install
     volumes:
       - .:/app
     depends_on:
