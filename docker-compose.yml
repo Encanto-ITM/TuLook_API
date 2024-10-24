@@ -37,10 +37,9 @@ services:
       - JWT_ALGO=HS256
     ports:
       - 8080:8080
-    command: 
-      - cd /app && composer install && ls -a
     volumes:
       - .:/app
+    command: ["composer", "install"]
     depends_on:
       - mysql
       
