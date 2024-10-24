@@ -8,10 +8,10 @@ RUN echo "America/Costa_Rica" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata
 
 # Set working directory
-WORKDIR /app
+WORKDIR /tulook
 
 # Copy project files into container
-COPY . /app
+COPY . /tulook
 
 # Install Composer
 RUN apt-get update && apt-get install -y zip unzip && \
