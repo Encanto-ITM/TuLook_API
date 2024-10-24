@@ -20,7 +20,8 @@ RUN apt-get update && apt-get install -y zip unzip && \
     php -r "unlink('composer-setup.php');"
 
 # Install dependencies
-RUN composer install --no-dev && composer --version
+RUN cd && cd /app && composer install
+# RUN composer install --no-dev && composer --version
 
 # Set command to run web server
 CMD ["php", "artisan", "serve", "--host=0.0.0.0"]

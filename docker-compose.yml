@@ -38,7 +38,7 @@ services:
       - 8080:8080
     volumes:
       - .:/app
-    command: ["composer", "install", "--no-dev", "&&", "composer", "--version"]
+    # command: ["composer", "install", "--no-dev", "&&", "composer", "--version"]
     restart: always
     depends_on:
       - mysql
