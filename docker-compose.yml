@@ -8,7 +8,6 @@ services:
       context: . 
       dockerfile: Dockerfile
     container_name: TuLook_Api
-    restart: always
     networks:
       - tulook
     environment:
@@ -39,7 +38,7 @@ services:
       - 8080:8080
     volumes:
       - .:/app
-    command: ["composer", "install"]
+    command: ["composer", "install", "--require-dev"]
     depends_on:
       - mysql
       
