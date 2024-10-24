@@ -38,7 +38,7 @@ services:
     ports:
       - 8080:8080
     command: 
-      - cd /app && composer install && php artisan key:generate 
+      - cd /app && composer install && ls -a
     volumes:
       - .:/app
     depends_on:
