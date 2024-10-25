@@ -33,7 +33,7 @@ class Appointment extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['service_id', 'owner_id', 'date', 'status', 'total', 'location', 'applicant'];
+    protected $fillable = ['service_id', 'owner_id', 'applicant', 'date', 'status', 'total', 'location'];
 
 
     /**
@@ -44,12 +44,20 @@ class Appointment extends Model
         return $this->belongsTo(\App\Models\Service::class, 'service_id', 'id');
     }
     
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo(\App\Models\User::class, 'owner_id', 'id');
-    }
+   /**
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
+   public function owner()
+   {
+       return $this->belongsTo(\App\Models\User::class, 'owner_id', 'id');
+   }
+   
+   /**
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
+   public function applicant()
+   {
+       return $this->belongsTo(\App\Models\User::class, 'applicant', 'id');
+   }
     
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\AppointmentRequest;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AppointmentResource;
+use Illuminate\Http\JsonResponse;
 
 class AppointmentController extends Controller
 {
@@ -28,8 +29,9 @@ class AppointmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AppointmentRequest $request): Appointment
+    public function store(AppointmentRequest $request): Appointment|JsonResponse
     {
+        // return response()->json($request->all(), 201);
         return Appointment::create($request->validated());
     }
 
