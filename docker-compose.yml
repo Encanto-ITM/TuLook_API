@@ -12,8 +12,7 @@ services:
       - tulook
     environment:
       - APP_KEY=base64:t6BPvxple6iuJIDtx1eQVBlfZqJCebncJ8ZpU1IOp2Y=
-      - APP_DEBUG=true
-      - APP_TIMEZONE=UTC
+      - APP_TIMEZONE=America/Costa_Rica
 
       - DB_CONNECTION=mysql
       - DB_HOST=mysql
@@ -35,7 +34,7 @@ services:
       - JWT_SECRET=ucmNHSkFCwsBET0oQdZyS42aLCVXCO9xQZxApPw0HheAiBTsxheE9u5vIijET8RA
       - JWT_ALGO=HS256
     ports:
-      - 8080:8080
+      - 9000:8080
     volumes:
       - .:/app
     # command: ["composer", "install", "--no-dev", "&&", "composer", "--version"]

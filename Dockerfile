@@ -1,33 +1,28 @@
-FROM php:8.3.7-fpm
-
-# Install MySQL driver and necessary extensions
-RUN docker-php-ext-install pdo pdo_mysql
+FROM php:8.3-fpm
 
 # Configure timezone
 RUN echo "America/Costa_Rica" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata
 
-# Set working directory
-WORKDIR /tulook
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev unzip && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd pdo pdo_mysql
+    # php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    # php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
+    # php -r "unlink('composer-setup.php');"
 
-# Copy project files into container
-COPY . /tulook
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Install Composer
-RUN apt-get update && apt-get install -y zip unzip && \
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-    php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
-    php -r "unlink('composer-setup.php');"
+WORKDIR /var/www/tulook
 
-# Create vendor directory 
-RUN mkdir vendor
+COPY . .
 
-# Install dependencies
 RUN composer install
-# RUN composer install --no-dev && composer --version
 
-# Set command to run web server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0"]
+RUN chown -R www-data:www-data /var/www/tulook
 
 # Expose port
-EXPOSE 8000
+EXPOSE 9000
+
+CMD ["php-fpm"]
+# CMD ["php", "artisan", "serve", "--host=0.0.0.0" , "--port=9000"]
