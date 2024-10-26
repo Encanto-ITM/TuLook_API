@@ -1,28 +1,49 @@
-FROM php:8.3-fpm
+# Usa la imagen de PHP 8.3 con Apache
+FROM php:8.3-apache
 
-# Configure timezone
-RUN echo "America/Costa_Rica" > /etc/timezone && \
-    dpkg-reconfigure -f noninteractive tzdata
+# Instala extensiones necesarias
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    zip \
+    unzip \
+    git \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_mysql gd
 
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev unzip && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install gd pdo pdo_mysql
-    # php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-    # php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
-    # php -r "unlink('composer-setup.php');"
-
+# Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/tulook
+# Copia el código del proyecto Laravel al contenedor
+COPY . /var/www/html
 
-COPY . .
+# Da permisos a los directorios necesarios de Laravel
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
+# Establece el directorio de trabajo
+WORKDIR /var/www/html
+
+# Copia el archivo .env.example al contenedor
+COPY .env.example .env
+
+# Activa el módulo de reescritura de Apache
+RUN a2enmod rewrite
+
+# Configura Apache para usar el archivo .htaccess de Laravel
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
+# Crea el archivo .htaccess de Laravel
+RUN touch .htaccess
+
+# Agrega el archivo .htaccess de Laravel al contenedor
+COPY .htaccess .
+
+# Instala dependencias de Laravel
 RUN composer install
 
-RUN chown -R www-data:www-data /var/www/tulook
+# Genera la clave de la aplicación
+RUN php artisan key:generate
 
-# Expose port
-EXPOSE 9000
-
-CMD ["php-fpm"]
-# CMD ["php", "artisan", "serve", "--host=0.0.0.0" , "--port=9000"]
+# Expone el puerto 80 para Apache
+EXPOSE 80

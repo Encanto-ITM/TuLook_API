@@ -3,45 +3,24 @@ networks:
     driver: bridge
 
 services:
-  tulook_api:
-    build: 
-      context: . 
+  app:
+    build:
+      context: .
       dockerfile: Dockerfile
-    container_name: TuLook_Api
-    networks:
-      - tulook
+    container_name: tulook_api
+    ports:
+      - 8000:80
     environment:
-      - APP_KEY=base64:t6BPvxple6iuJIDtx1eQVBlfZqJCebncJ8ZpU1IOp2Y=
-      - APP_TIMEZONE=America/Costa_Rica
-
-      - DB_CONNECTION=mysql
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_DATABASE=tulook_db
       - DB_USERNAME=tulook_api
       - DB_PASSWORD=Encantoparatodos
-
-      - MAIL_MAILER=smtp
-      - MAIL_HOST=smtp.googlemail.com
-      - MAIL_PORT=465
-      - MAIL_USERNAME=encantoITM@gmail.com
-      - MAIL_PASSWORD=Encantoparatodos
-      - MAIL_ENCRYPTION=ssl
-      - MAIL_FROM_ADDRESS=encantoITM@gmail.com
-      - MAIL_FROM_NAME=TuLook_API
-      - VITE_APP_NAME=TuLook_API
-
-      - JWT_SECRET=ucmNHSkFCwsBET0oQdZyS42aLCVXCO9xQZxApPw0HheAiBTsxheE9u5vIijET8RA
-      - JWT_ALGO=HS256
-    ports:
-      - 9000:8080
-    volumes:
-      - .:/app
-    # command: ["composer", "install", "--no-dev", "&&", "composer", "--version"]
-    restart: always
     depends_on:
       - mysql
-      
+    networks:
+      - tulook
+
   mysql:
     image: mysql:8.0
     container_name: mysql
