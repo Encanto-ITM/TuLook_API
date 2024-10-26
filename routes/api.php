@@ -42,7 +42,7 @@ Route::apiResource('users', UserController::class);
 
 Route::Resource('appointments', AppointmentController::class);
 Route::get('/appointments/{ownerId}/owner', [AppointmentController::class, 'getAppointmentsByOwner']);
-Route::get('/appointments/{clientId}/user', [AppointmentController::class, 'getAppointmentsByUser']);
+Route::get('/appointments/{clientId}/client', [AppointmentController::class, 'getAppointmentsByUser']);
 
 Route::Resource('type_services', TypeServicesController::class);
 Route::Resource('professions', ProfessionController::class);
