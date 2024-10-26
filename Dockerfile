@@ -33,12 +33,6 @@ RUN a2enmod rewrite
 # Configura Apache para usar el archivo .htaccess de Laravel
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
-# Crea el archivo .htaccess de Laravel
-RUN touch .htaccess
-
-# Agrega el archivo .htaccess de Laravel al contenedor
-COPY .htaccess .
-
 # Instala dependencias de Laravel
 RUN composer install
 
