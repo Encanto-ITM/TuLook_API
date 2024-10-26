@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AppointmentResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
@@ -17,12 +18,21 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        $appointments = Appointment::all();
+        $appointments = Appointment::select(
+            'appointments.*',
+            'service.name as service_name',
+            DB::raw("CONCAT(user.name, ' ', user.lastname) as owner_fullname"),
+            DB::raw("CONCAT(aplicant.name, ' ', aplicant.lastname) as applicant_fullname"),
+        )
+            ->join('users as user', 'appointments.owner_id', '=', 'user.id')
+            ->join('users as aplicant', 'appointments.applicant', '=', 'aplicant.id')
+            ->join('services as service', 'appointments.service_id', '=', 'service.id')
+            ->get();
 
         if ($appointments->isEmpty()) {
             return response()->json(['message' => 'No se encontraron resultados'], 404);
         }
-        
+
         return $appointments;
     }
 
@@ -66,7 +76,17 @@ class AppointmentController extends Controller
     public function getAppointmentsByOwner($ownerId)
     {
         // Obtener todos los servicios relacionados con el servicio
-        $appointments = Appointment::where('owner_id', $ownerId)->get();
+        $appointments = Appointment::select(
+            'appointments.*',
+            'service.name as service_name',
+            DB::raw("CONCAT(user.name, ' ', user.lastname) as owner_fullname"),
+            DB::raw("CONCAT(aplicant.name, ' ', aplicant.lastname) as applicant_fullname"),
+        )
+            ->join('users as user', 'appointments.owner_id', '=', 'user.id')
+            ->join('users as aplicant', 'appointments.applicant', '=', 'aplicant.id')
+            ->join('services as service', 'appointments.service_id', '=', 'service.id')
+            ->where('appointments.owner_id', $ownerId)
+            ->get();
 
         // Retornar los servicios en formato de recurso
         if ($appointments->isEmpty()) {
@@ -83,8 +103,17 @@ class AppointmentController extends Controller
     public function getAppointmentsByUser($user_id)
     {
         // Obtener todos los servicios relacionados con el servicio
-        $appointments = Appointment::where('applicant', $user_id)->get();
-
+        $appointments = Appointment::select(
+            'appointments.*',
+            'service.name as service_name',
+            DB::raw("CONCAT(user.name, ' ', user.lastname) as owner_fullname"),
+            DB::raw("CONCAT(aplicant.name, ' ', aplicant.lastname) as applicant_fullname"),
+        )
+            ->join('users as user', 'appointments.owner_id', '=', 'user.id')
+            ->join('users as aplicant', 'appointments.applicant', '=', 'aplicant.id')
+            ->join('services as service', 'appointments.service_id', '=', 'service.id')
+            ->where('appointments.applicant', $user_id)
+            ->get();
         // Retornar los servicios en formato de recurso
         if ($appointments->isEmpty()) {
             return response()->json(['message' => 'No se encontraron resultados'], 404);
