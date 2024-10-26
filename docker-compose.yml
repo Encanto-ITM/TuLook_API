@@ -1,3 +1,5 @@
+version: '3.8'
+
 networks:
   tulook:
     driver: bridge
@@ -20,6 +22,10 @@ services:
       - mysql
     networks:
       - tulook
+    volumes:
+      - .:/var/www/html
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+      - ./storage:/var/www/html/storage
 
   mysql:
     image: mysql:8.0

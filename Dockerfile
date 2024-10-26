@@ -12,6 +12,12 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql gd
 
+# Habilita el módulo rewrite de Apache
+RUN a2enmod rewrite
+
+# Establece el DocumentRoot en /public
+RUN echo "DocumentRoot /var/www/html/public" >> /etc/apache2/sites-available/000-default.conf
+
 # Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -27,17 +33,14 @@ WORKDIR /var/www/html
 # Copia el archivo .env.example al contenedor
 COPY .env.example .env
 
-# Activa el módulo de reescritura de Apache
-RUN a2enmod rewrite
-
-# Configura Apache para usar el archivo .htaccess de Laravel
-RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
-
 # Instala dependencias de Laravel
 RUN composer install
 
 # Genera la clave de la aplicación
 RUN php artisan key:generate
+
+# Genera la key del JWT
+RUN php artisan jwt:secret
 
 # Expone el puerto 80 para Apache
 EXPOSE 80
