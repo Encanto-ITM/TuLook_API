@@ -1,9 +1,4 @@
 version: '3.8'
-
-networks:
-  tulook:
-    driver: bridge
-
 services:
   app:
     build:
@@ -11,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: tulook_api
     ports:
-      - 8000:80
+      - 80:80
     environment:
       - DB_HOST=mysql
       - DB_PORT=3306
@@ -20,8 +15,6 @@ services:
       - DB_PASSWORD=Encantoparatodos
     depends_on:
       - mysql
-    networks:
-      - tulook
     volumes:
       - .:/var/www/html
       - ./bootstrap/cache:/var/www/html/bootstrap/cache
@@ -31,8 +24,6 @@ services:
     image: mysql:8.0
     container_name: mysql
     restart: always
-    networks:
-      - tulook
     environment:
       - MYSQL_ROOT_PASSWORD=Encantoparatodos
       - MYSQL_DATABASE=tulook_db
@@ -47,8 +38,6 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
     restart: always
-    networks:
-      - tulook
     ports:
       - 8081:80
     environment:
