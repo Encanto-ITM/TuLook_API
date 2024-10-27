@@ -21,6 +21,9 @@ COPY . /var/www/html
 # Da permisos a los directorios necesarios de Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
+# Da permisos a los directorios necesarios de Laravel
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
 # Establece el directorio de trabajo
 WORKDIR /var/www/html
 
@@ -28,7 +31,7 @@ WORKDIR /var/www/html
 COPY .env.example .env
 
 # Instala dependencias de Laravel
-RUN composer install
+RUN composer install --optimize-autoloader
 
 # Genera la clave de la aplicación
 RUN php artisan key:generate
