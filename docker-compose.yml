@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: tulook_api
+    # command: 
+      # - composer install
     environment:
       - DB_HOST=mysql
       - DB_PORT=3306
