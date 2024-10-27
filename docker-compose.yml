@@ -5,8 +5,9 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: tulook_api
-    # command: 
-      # - composer install
+    command: 
+      - chmod +x init.sh
+      - ["/bin/bash", "-c", "./init.sh && apache2-foreground"]
     environment:
       - DB_HOST=mysql
       - DB_PORT=3306
