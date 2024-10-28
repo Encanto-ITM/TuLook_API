@@ -22,3 +22,8 @@ sudo apt install docker-compose -y
 # Inicia el contenedor
 sudo docker-compose up -d --build
 
+# Espera a que los contenedores inicien
+# sleep 60
+
+# Ejecuta el script init.sh
+./init.sh
