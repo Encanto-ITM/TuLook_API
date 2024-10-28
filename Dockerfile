@@ -41,6 +41,3 @@ RUN php artisan jwt:secret
 
 # Expone el puerto 9000 para PHP-FPM
 EXPOSE 9000
-
-# Ejecuta el servidor PHP-FPM
-CMD ["php-fpm"]
