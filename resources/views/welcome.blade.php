@@ -22,6 +22,7 @@
     </main>
     <section class="">
         <div class="row gap-2 justify-content-center">
+            {{-- Usuarios --}}
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
                 <h2 class="font-weight-bolder">Usuarios</h2>
                 <hr>
@@ -48,8 +49,23 @@
                         <a href="/api/api/workers">/api/workers</a>
                         <span>→ Accede a todos los trabajadores</span>
                     </li>
+                    <li>
+                        ( <span style="color: green">C</span>
+                        <span style="color: blue">R</span>
+                        <span style="color: orange">U</span>
+                        <span style="color: red">D</span> ):
+                        <a href="/api/api/services-in-carts">/api/services-in-carts</a>
+                        <span>→ Accede a todos los servicios en carrito</span>
+                    </li>
+                    <li>
+                        ( <span style="color: blue">GET</span> ):
+                        <a href="/api/api/services-in-carts/{serviceId}/service">/api/services-in-carts/{serviceId}/service</a>
+                        <span>→ Accede a todos los servicios en carrito de un usuario</span>
+                    </li>
                 </ul>
             </div>
+
+            {{-- Servicios --}}
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
                 <h2 class="font-weight-bolder">Servicios</h2>
                 <hr>
@@ -80,6 +96,8 @@
                     </li>
                 </ul>
             </div>
+
+            {{-- Citas --}}
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
                 <h2 class="font-weight-bolder">Citas</h2>
                 <hr>
@@ -102,8 +120,20 @@
                         <a href="/api/api/appointments/{clientId}/client">/api/appointments/{clientId}/client</a>
                         <span>→ Accede a todas las citas de un cliente</span>
                     </li>
+                    <li>
+                        ( <span style="color: blue">GET</span> ):
+                        <a href="/api/api/appointments/{ownerId}/owner/on-time">/api/appointments/{ownerId}/owner/on-time</a>
+                        <span>→ Accede a todas las citas de un emprendedor on-time </span>
+                    </li>
+                    <li>
+                        ( <span style="color: blue">GET</span> ):
+                        <a href="/api/api/appointments/{clientId}/client/on-time">/api/appointments/{clientId}/client/on-time</a>
+                        <span>→ Accede a todas las citas de un cliente on-time</span>
+                    </li>
                 </ul>
             </div>
+
+            {{-- Otros --}}
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
                 <h2 class="font-weight-bolder">Otros</h2>
                 <hr>
@@ -132,8 +162,23 @@
                         <a href="/api/api/acounttypes">/api/acounttypes</a>
                         <span>→ Accede a todos los tipos de cuenta</span>
                     </li>
+                    <li>
+                        ( <span style="color: green">C</span>
+                        <span style="color: blue">R</span>
+                        <span style="color: orange">U</span>
+                        <span style="color: red">D</span> ):
+                        <a href="/api/api/comments">/api/comments</a>
+                        <span>→ Accede a todos los comentarios</span>
+                    </li>
+                    <li>
+                        ( <span style="color: blue">GET</span> ):
+                        <a href="/api/api/comments/{serviceId}/service">/api/comments/{serviceId}/service</a>
+                        <span>→ Accede a todos los comentarios de un servicio</span>
+                    </li>
                 </ul>
             </div>
+
+            {{-- JWT-login/logout --}}
             <div class="col-5 p-2 bg-black rounded-4 bg-opacity-25">
                 <h2 class="font-weight-bolder">JWT-login/logout</h2>
                 <hr>

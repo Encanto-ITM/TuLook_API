@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\PruebasController;
 use App\Http\Controllers\Api\TypeServicesController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ServicesInCartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +45,15 @@ Route::apiResource('users', UserController::class);
 Route::Resource('appointments', AppointmentController::class);
 Route::get('/appointments/{ownerId}/owner', [AppointmentController::class, 'getAppointmentsByOwner']);
 Route::get('/appointments/{clientId}/client', [AppointmentController::class, 'getAppointmentsByUser']);
+Route::get('/appointments/{ownerId}/owner/on-time', [AppointmentController::class, 'getAppointmentsByOwneronTime']);
+Route::get('/appointments/{clientId}/client/on-time', [AppointmentController::class, 'getAppointmentsByUserOnTime']);
 
 Route::Resource('type_services', TypeServicesController::class);
 Route::Resource('professions', ProfessionController::class);
 Route::Resource('acounttypes', AcounttypeController::class);
+
+Route::Resource('comments', CommentController::class);
+Route::get('/comments/{serviceId}/service', [CommentController::class, 'getCommentsByService']);
+
+Route::apiResource('services-in-carts', ServicesInCartController::class);
+Route::get('/services-in-carts/{userId}/user', [ServicesInCartController::class, 'getServicesInCartByUser']);

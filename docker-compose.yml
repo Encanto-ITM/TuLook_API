@@ -39,7 +39,7 @@ services:
       - MYSQL_USER=tulook_api
       - MYSQL_PASSWORD=Encantoparatodos
     ports:
-      - 3306:3306
+      - 3307:3306
     volumes:
       - ./docker/mysql:/var/lib/mysql
 

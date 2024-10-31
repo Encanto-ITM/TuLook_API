@@ -51,7 +51,10 @@ class UserController extends Controller
     {
         // return response()->json([$request->all()], 205);
 
-        $user->update($request->validated());
+        // filtrar no poder editar contraseña
+        // $request->except('password');
+
+        $user->update($request->validated()->except('password'));
 
         return $user;
     }
