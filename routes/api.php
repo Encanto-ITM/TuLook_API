@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\Api\AcounttypeController;
-use App\Http\Controllers\Api\AppointmentController;
-use App\Http\Controllers\Api\ProfessionController;
-use App\Http\Controllers\Api\ServiceController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Api\PruebasController;
-use App\Http\Controllers\Api\TypeServicesController;
-use App\Http\Controllers\Api\CommentController;
-use App\Http\Controllers\Api\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\PruebasController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ProfessionController;
+use App\Http\Controllers\Api\AcounttypeController;
+use App\Http\Controllers\Api\AppointmentController;
+use App\Http\Controllers\Api\TypeServicesController;
+use App\Http\Controllers\Auth\PasswordResetController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -53,7 +54,16 @@ Route::Resource('professions', ProfessionController::class);
 Route::Resource('acounttypes', AcounttypeController::class);
 
 Route::Resource('comments', CommentController::class);
-Route::get('/comments/{serviceId}/service', [CommentController::class, 'getCommentsByService']);
+Route::get('comments/{serviceId}/service', [CommentController::class, 'getCommentsByService']);
 
 Route::Resource('carts', CartController::class);
 Route::get('carts/{userId}/user', [CartController::class, 'getCartsByUser']);
+
+Route::post('password/forgot', [PasswordResetController::class, 'sendResetLink']);
+Route::post('password/reset', [PasswordResetController::class, 'resetPassword']);
+Route::get('/password/reset/{token}', function ($token) {
+    // Esta ruta normalmente redirige a una vista de restablecimiento de contraseña.
+    // Si no la necesitas, simplemente devuelve el token en la respuesta.
+    return response()->json(['token' => $token]);
+})->name('password.reset');
+
