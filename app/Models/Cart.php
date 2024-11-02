@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Servicesincart
+ * Class Cart
  *
  * @property $id
  * @property $service_id
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Servicesincart extends Model
+class Cart extends Model
 {
     
     protected $perPage = 20;

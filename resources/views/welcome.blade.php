@@ -54,12 +54,12 @@
                         <span style="color: blue">R</span>
                         <span style="color: orange">U</span>
                         <span style="color: red">D</span> ):
-                        <a href="/api/api/servicesincarts">/api/servicesincarts</a>
+                        <a href="/api/api/carts">/api/carts</a>
                         <span>→ Accede a todos los servicios en carrito</span>
                     </li>
                     <li>
                         ( <span style="color: blue">GET</span> ):
-                        <a href="/api/api/servicesincarts/{user_id}/service">/api/servicesincarts/{user_id}/service</a>
+                        <a href="/api/api/carts/{user_id}/user">/api/carts/{user_id}/user</a>
                         <span>→ Accede a todos los servicios en carrito de un usuario</span>
                     </li>
                 </ul>

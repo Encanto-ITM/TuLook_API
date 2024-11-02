@@ -9,7 +9,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\PruebasController;
 use App\Http\Controllers\Api\TypeServicesController;
 use App\Http\Controllers\Api\CommentController;
-use App\Http\Controllers\Api\ServicesInCartController;
+use App\Http\Controllers\Api\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -55,5 +55,5 @@ Route::Resource('acounttypes', AcounttypeController::class);
 Route::Resource('comments', CommentController::class);
 Route::get('/comments/{serviceId}/service', [CommentController::class, 'getCommentsByService']);
 
-Route::Resource('servicesincarts', ServicesInCartController::class);
-Route::get('/servicesincarts/{userId}/user', [ServicesInCartController::class, 'getServicesInCartByUser']);
+Route::Resource('carts', CartController::class);
+Route::get('carts/{userId}/user', [CartController::class, 'getCartsByUser']);
