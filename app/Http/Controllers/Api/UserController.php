@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class UserController extends Controller
 {
@@ -49,14 +50,24 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user): User|JsonResponse
     {
-        // return response()->json([$request->all()], 205);
+        $data = $request->validated();
+        unset($data['password']); // Remueve `password` si existe
 
-        // filtrar no poder editar contraseña
-        // $request->except('password');
+        $user->fill($data);
 
-        $user->update($request->validated()->except('password'));
+        if ($request->hasFile('profilephoto')) {
+            $user->profilephoto = $this->uploadImage($request->file('profilephoto'), 'profilephotos');
+        }
+
+        if ($request->hasFile('headerphoto')) {
+            $user->headerphoto = $this->uploadImage($request->file('headerphoto'), 'headerphotos');
+        }
+
+        $user->save();
 
         return $user;
+
+        // return response()->json($user->password, 200);
     }
 
     public function destroy(User $user): Response
@@ -87,5 +98,16 @@ class UserController extends Controller
     public function getAdmins()
     {
         return User::where("acounttype_id", 1)->get();
+    }
+
+    protected function uploadImage($image, $folder) 
+    {
+        if ($image) {
+            $uploadedImage = Cloudinary::upload($image->getRealPath(), ['folder' => $folder]);
+            $publicId = $uploadedImage->getPublicId();
+            return cloudinary()->getUrl($publicId);
+        }
+
+        return null;
     }
 }
