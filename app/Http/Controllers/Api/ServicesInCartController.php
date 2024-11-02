@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\ServicesInCart;
+use App\Models\Servicesincart;
 use Illuminate\Http\Request;
-use App\Http\Requests\ServicesInCartRequest;
+use App\Http\Requests\ServicesincartRequest;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ServicesInCartResource;
+use App\Http\Resources\ServicesincartResource;
 
 class ServicesInCartController extends Controller
 {
@@ -16,61 +16,64 @@ class ServicesInCartController extends Controller
      */
     public function index(Request $request)
     {
-        $servicesInCarts = ServicesInCart::all();
+        $servicesincarts = Servicesincart::all();
 
-        if ($servicesInCarts->count() == 0) {
+        if ($servicesincarts->count() == 0) {
             return response()->json([
                 "message" => "No se encontraron resultados",
             ], 404);
         }
 
-        return $servicesInCarts;
+        return $servicesincarts;
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ServicesInCartRequest $request): ServicesInCart
+    public function store(ServicesincartRequest $request): Servicesincart
     {
-        return ServicesInCart::create($request->validated());
+        return Servicesincart::create($request->validated());
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ServicesInCart $servicesInCart): ServicesInCart
+    public function show(Servicesincart $servicesincart): Servicesincart
     {
-        return $servicesInCart;
+        return $servicesincart;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ServicesInCartRequest $request, ServicesInCart $servicesInCart): ServicesInCart
+    public function update(ServicesincartRequest $request, Servicesincart $servicesincart): Servicesincart
     {
-        $servicesInCart->update($request->validated());
+        $servicesincart->update($request->validated());
 
-        return $servicesInCart;
+        return $servicesincart;
     }
 
-    public function destroy(ServicesInCart $servicesInCart): Response
+    public function destroy(Servicesincart $servicesincart): Response
     {
-        $servicesInCart->delete();
+        $servicesincart->delete();
 
         return response()->noContent();
     }
 
-    public function getByUser(Request $request)
+    /**
+     * Returns a list of services in cart by user.
+     */
+    public function getServicesInCartByUser(Request $request)
     {
-        $user = $request->user;
-        $servicesInCarts = ServicesInCart::where("user_id", $user->id)->get();
+        $user_id = $request->user;
+        $servicesincarts = Servicesincart::where('user_id', $user_id)->get();
 
-        if ($servicesInCarts->count() == 0) {
+        if ($servicesincarts->count() == 0) {
             return response()->json([
                 "message" => "No se encontraron resultados",
             ], 404);
         }
 
-        return $servicesInCarts;
+        return $servicesincarts;
     }
 }

@@ -55,5 +55,5 @@ Route::Resource('acounttypes', AcounttypeController::class);
 Route::Resource('comments', CommentController::class);
 Route::get('/comments/{serviceId}/service', [CommentController::class, 'getCommentsByService']);
 
-Route::apiResource('services-in-carts', ServicesInCartController::class);
-Route::get('/services-in-carts/{userId}/user', [ServicesInCartController::class, 'getServicesInCartByUser']);
+Route::Resource('servicesincarts', ServicesInCartController::class);
+Route::get('/servicesincarts/{userId}/user', [ServicesInCartController::class, 'getServicesInCartByUser']);

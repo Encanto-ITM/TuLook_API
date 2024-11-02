@@ -54,12 +54,12 @@
                         <span style="color: blue">R</span>
                         <span style="color: orange">U</span>
                         <span style="color: red">D</span> ):
-                        <a href="/api/api/services-in-carts">/api/services-in-carts</a>
+                        <a href="/api/api/servicesincarts">/api/servicesincarts</a>
                         <span>→ Accede a todos los servicios en carrito</span>
                     </li>
                     <li>
                         ( <span style="color: blue">GET</span> ):
-                        <a href="/api/api/services-in-carts/{serviceId}/service">/api/services-in-carts/{serviceId}/service</a>
+                        <a href="/api/api/servicesincarts/{user_id}/service">/api/servicesincarts/{user_id}/service</a>
                         <span>→ Accede a todos los servicios en carrito de un usuario</span>
                     </li>
                 </ul>
@@ -172,7 +172,7 @@
                     </li>
                     <li>
                         ( <span style="color: blue">GET</span> ):
-                        <a href="/api/api/comments/{serviceId}/service">/api/comments/{serviceId}/service</a>
+                        <a href="/api/api/comments/{user_id}/service">/api/comments/{user_id}/service</a>
                         <span>→ Accede a todos los comentarios de un servicio</span>
                     </li>
                 </ul>
