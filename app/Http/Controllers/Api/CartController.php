@@ -66,6 +66,10 @@ class CartController extends Controller
      */
     public function getByUser(Request $request)
     {
+        $request->validate([
+            'user_id' => 'required|exists:users,id'
+        ]);
+
         $user_id = $request->user_id;
         $user = Cart::where("user_id", $user_id)->get();
 
@@ -74,8 +78,6 @@ class CartController extends Controller
                 "message" => "No se encontraron resultados",
             ], 404);
         }
-
-        //loco
 
         return response()->json($user);
     }
