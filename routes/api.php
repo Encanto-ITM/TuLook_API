@@ -28,7 +28,6 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:api')->name('refresh');
     Route::post('/me', [AuthController::class, 'me'])->middleware('auth:api')->name('me');
     Route::post('/update-password', [AuthController::class, 'updatePassword']);
-    Route::post('/recover-password', [AuthController::class, 'recoverPassword']);
 });
 
 Route::Resource('prueba/imagenes', PruebasController::class);
@@ -59,6 +58,8 @@ Route::get('comments/{serviceId}/service', [CommentController::class, 'getByServ
 Route::Resource('carts', CartController::class);
 Route::get('carts/{user_id}/user', [CartController::class, 'getByUser']);
 
+
+// Test Password Reset
 Route::post('password/forgot', [PasswordResetController::class, 'sendResetLink']);
 Route::post('password/reset', [PasswordResetController::class, 'resetPassword']);
 Route::get('/password/reset/{token}', function ($token) {
