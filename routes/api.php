@@ -57,7 +57,7 @@ Route::Resource('comments', CommentController::class);
 Route::get('comments/{serviceId}/service', [CommentController::class, 'getCommentsByService']);
 
 Route::Resource('carts', CartController::class);
-Route::get('carts/{userId}/user', [CartController::class, 'getCartsByUser']);
+Route::get('carts/{user_id}/user', [CartController::class, 'getByUser']);
 
 Route::post('password/forgot', [PasswordResetController::class, 'sendResetLink']);
 Route::post('password/reset', [PasswordResetController::class, 'resetPassword']);

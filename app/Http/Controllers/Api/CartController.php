@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Http\Requests\CartRequest;
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResource;
@@ -63,18 +64,17 @@ class CartController extends Controller
     /**
      * Get all carts by user
      */
-    public function getCartsByUser(Request $request)
+    public function getByUser(Request $request)
     {
-        $user = $request->user_id;
+        $user_id = $request->user_id;
+        $user = Cart::where("user_id", $user_id)->get();
 
-        $carts = Cart::where('user_id', $user)->get();
-
-        if ($carts->count() == 0) {
+        if ($user->count() == 0) {
             return response()->json([
                 "message" => "No se encontraron resultados",
             ], 404);
         }
-        
-        return $carts;
+
+        return response()->json($user);
     }
 }
