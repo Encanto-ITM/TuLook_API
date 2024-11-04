@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
+use App\Http\Resources\CommentResource;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -63,15 +64,14 @@ class CommentController extends Controller
     /**
      * Get comments by service
      */
-    public function getByService(Request $request)
+    public function getByService($service_id)
     {
-        $service = $request->service;
-        $comments = Comment::where("service_id", $service)->get();
+        // Obtener todos los beneficios relacionados con el servicio
+        $comments = Comment::where('service_id', $service_id)->get();
 
-        if ($comments->count() == 0) {
-            return response()->json([
-                "message" => "No se encontraron resultados",
-            ], 404);
+        // Retornar los beneficios en formato de recurso
+        if ($comments->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron resultados'], 404);
         }
 
         return $comments;
