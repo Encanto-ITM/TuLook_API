@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CommentResource;
+use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
@@ -27,7 +27,7 @@ class CommentController extends Controller
         return $comments;
     }
 
-    /**
+   /**
      * Store a newly created resource in storage.
      */
     public function store(CommentRequest $request): Comment
