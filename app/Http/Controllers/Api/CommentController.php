@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
-use App\Http\Resources\CommentResource;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
