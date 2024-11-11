@@ -6,12 +6,9 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
-use App\Mail\PasswordRecoveryMail;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
-use Mail;
-use Str;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {

@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
-use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
+use App\Notifications\CustomResetPasswordNotification;
 
 /**
  * Class User
@@ -50,10 +48,28 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'lastname', 'email', 'password',
-     'socialmedias','contact_number', 'contact_public', 'is_active',
-     'facebook', 'instagram', 'linkedin', 'x', 'tiktok', 'whatsapp',
-      'profilephoto', 'headerphoto', 'address', 'description', 'acounttype_id', 'professions_id'];
+    protected $fillable = [
+        'name',
+        'lastname',
+        'email',
+        'password',
+        'socialmedias',
+        'contact_number',
+        'contact_public',
+        'is_active',
+        'facebook',
+        'instagram',
+        'linkedin',
+        'x',
+        'tiktok',
+        'whatsapp',
+        'profilephoto',
+        'headerphoto',
+        'address',
+        'description',
+        'acounttype_id',
+        'professions_id'
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -137,5 +153,14 @@ class User extends Authenticatable implements JWTSubject
     public function services()
     {
         return $this->hasMany(\App\Models\Service::class, 'id', 'owner_id');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        // Construye la URL personalizada con el token
+        $url = 'https://tulook.vercel.app/updatepassword/' . $token;
+
+        // Envía la notificación usando la URL personalizada
+        $this->notify(new CustomResetPasswordNotification($url));
     }
 }

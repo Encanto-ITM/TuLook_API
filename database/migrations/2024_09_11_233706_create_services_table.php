@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('is_active')->default(1);
             $table->string('considerations')->nullable(false);
             $table->string('aprox_time')->nullable(true);
-            $table->integer('type_service_id')->constrained('type_services')->noActionOnDelete();
+            $table->foreignId('type_service_id')->constrained('type_services')->noActionOnDelete();
             $table->timestamps();
         });
     }

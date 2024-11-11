@@ -101,7 +101,7 @@ return [
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
-            'url' => env('FRONTEND_PASSWORD_RESET_URL') // Añade esto para personalizar la URL
+            'url' => 'https://tulook.vercel.app/password/reset' // Añade esto para personalizar la URL
         ],
     ],
 
