@@ -39,5 +39,8 @@ RUN php artisan key:generate
 # Genera la key del JWT
 RUN php artisan jwt:secret
 
+# Busca en todos los archivos y remplaza tulook.vercel.app por localhost
+RUN sed -i -e 's/tulook.vercel.app/localhost/g' /var/www/html/.env
+
 # Expone el puerto 9000 para PHP-FPM
 EXPOSE 9000
