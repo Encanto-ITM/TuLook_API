@@ -24,7 +24,7 @@ class ServiceRequest extends FormRequest
         return [
 			'name' => 'string',
 			'owner_id' => 'int',
-            'image' => 'string', // Expecting a image
+            'image' => 'mimes:jpeg,png,jpg,webp|max:5120', // Expecting a image
 			'price' => 'int',
 			'details' => 'string',
 			'schedule' => 'string',

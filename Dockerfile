@@ -40,7 +40,7 @@ RUN php artisan key:generate
 RUN php artisan jwt:secret
 
 # Busca en el archivo Models/User.php y remplaza tulook.vercel.app por 3.21.19.209:80
-RUN sed -i 's/tulook.vercel.app/3.21.19.209:80/g' /var/www/html/app/Models/User.php
+RUN sed -i 's/tulook.vercel.app/3.141.34.121:80/g' /var/www/html/app/Models/User.php
 
 # Expone el puerto 9000 para PHP-FPM
 EXPOSE 9000
