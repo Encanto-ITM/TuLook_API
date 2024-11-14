@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ServiceResource;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Http\JsonResponse;
 
 class ServiceController extends Controller
 {
@@ -23,9 +24,23 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ServiceRequest $request): Service
+    public function store(ServiceRequest $request): Service | JsonResponse
     {
-        return Service::create($request->validated());
+        $request->validated();
+        
+        $data = $request->all();
+
+        if ($request->hasFile('image')) {
+            
+            $url = $this->uploadImage($request->file('image'), 'services_image');
+
+            // elimina el campo image del request
+            unset($data['image']);
+            
+            // agrega la nueva imagen
+            $data['image'] = $url;
+        }
+        return Service::create($data);
     }
 
     /**
@@ -34,14 +49,13 @@ class ServiceController extends Controller
     public function show(Service $service): Service
     {
         return $service;
-
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(ServiceRequest $request, Service $service): Service
-    {   
+    {
         $data = $request->validated();
 
         $service->fill($data);
@@ -150,7 +164,7 @@ class ServiceController extends Controller
         return ServiceResource::collection($services);
     }
 
-    protected function uploadImage($image, $folder) 
+    protected function uploadImage($image, $folder)
     {
         if ($image) {
             $uploadedImage = Cloudinary::upload($image->getRealPath(), ['folder' => $folder]);
