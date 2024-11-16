@@ -9,6 +9,7 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResource;
+use App\Models\User;
 
 class CartController extends Controller
 {
@@ -66,12 +67,13 @@ class CartController extends Controller
      */
     public function getByUser(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id'
-        ]);
-
-        $user_id = $request->user_id;
-        $user = Cart::where("user_id", $user_id)->get();
+        if (User::find($request->user_id)) {
+            $user = Cart::where("user_id", $request->user_id)->get();
+        } else{
+            return response()->json([
+                "message" => "El usuario no existe",
+            ], 404);
+        }
 
         if ($user->count() == 0) {
             return response()->json([
