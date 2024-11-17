@@ -24,6 +24,7 @@ class CartRequest extends FormRequest
         return [
 			'service_id' => 'int|exists:services,id',
 			'user_id' => 'int|exists:users,id',
+            'date' => 'date',
         ];
     }
 }
