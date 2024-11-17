@@ -22,9 +22,9 @@ class CartRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'service_id' => 'int|exists:services,id',
-			'user_id' => 'int|exists:users,id',
-            'date' => 'date',
+			'service_id' => 'required|int|exists:services,id',
+			'user_id' => 'required|int|exists:users,id',
+            'date' => 'required|date',
         ];
     }
 }
