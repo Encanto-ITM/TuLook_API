@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_id');
-            $table->foreignId('user_id');
+            $table->foreignId('service_id')->nullable(false);
+            $table->dateTime('date')->nullable(false);
+            $table->foreignId('user_id')->nullable(false);
             $table->timestamps();
         });
     }
