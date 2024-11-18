@@ -34,6 +34,5 @@ sudo docker-compose up -d --build
 # Sale y entra en la carpeta del frontend
 cd ../TuLook-Desarrollo-main
 
-# Inicia crea e inicia el contenedor desde un dockerfile
-sudo docker build -t frontend .
-sudo docker run -d --name frontend_container -p 80:80 frontend
+# Inicia el docker-compose
+sudo docker-compose up -d --build
