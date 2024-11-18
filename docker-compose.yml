@@ -13,9 +13,9 @@ services:
     depends_on:
       - mysql
     volumes:
-      - .:/var/www/html
-      - ./bootstrap/cache:/var/www/html/bootstrap/cache
-      - ./storage:/var/www/html/storage
+      - .:/var/www/html:cached
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache:delegated
+      - ./storage:/var/www/html/storage:delegated
 
   nginx:
     image: nginx:latest
@@ -23,8 +23,8 @@ services:
     ports:
       - 8080:80
     volumes:
-      - .:/var/www/html
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www/html:cached
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - app
 
@@ -33,10 +33,10 @@ services:
     container_name: mysql
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=Encantoparatodos
-      - MYSQL_DATABASE=tulook_db
-      - MYSQL_USER=tulook_api
-      - MYSQL_PASSWORD=Encantoparatodos
+      MYSQL_ROOT_PASSWORD: Encantoparatodos
+      MYSQL_DATABASE: tulook_db
+      MYSQL_USER: tulook_api
+      MYSQL_PASSWORD: Encantoparatodos
     ports:
       - 3307:3306
     volumes:
@@ -49,9 +49,9 @@ services:
     ports:
       - 8081:80
     environment:
-      - PMA_HOST=mysql
-      - PMA_PORT=3306
-      - PMA_USER=tulook_api
-      - PMA_PASSWORD=Encantoparatodos
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: tulook_api
+      PMA_PASSWORD: Encantoparatodos
     depends_on:
       - mysql
