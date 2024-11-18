@@ -15,10 +15,10 @@ RUN apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql gd
 
 # Instala Composer
-# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN curl -sS https://getcomposer.org/installer | php
-RUN apt-get install curl -y
-RUN mv composer.phar /usr/local/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# RUN curl -sS https://getcomposer.org/installer | php
+# RUN apt-get install curl -y
+# RUN mv composer.phar /usr/local/bin/composer
 
 # Copia el código del proyecto Laravel al contenedor
 COPY . /var/www/html
