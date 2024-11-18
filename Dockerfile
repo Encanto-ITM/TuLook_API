@@ -21,9 +21,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . /var/www/html
 
 # Da permisos a los directorios necesarios de Laravel
-RUN chown -R www-data:www-data /var/www/html \
-    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Establece el directorio de trabajo
 WORKDIR /var/www/html
@@ -34,8 +33,12 @@ COPY .env.example .env
 # Instala dependencias de Laravel
 RUN composer install --optimize-autoloader --no-dev
 
+# Cambia el propietario de la carpeta vendor
+RUN chown -R www-data:www-data /var/www/html/vendor
+
 # Genera la clave de la aplicación
 RUN php artisan key:generate
 
 # Expone el puerto 9000 para PHP-FPM
 EXPOSE 9000
+
