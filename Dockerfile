@@ -2,7 +2,9 @@
 FROM php:8.3-fpm
 
 # Instala extensiones necesarias
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get upgrade -y
+
+RUN apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
@@ -13,7 +15,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql gd
 
 # Instala Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php
+RUN apt-get install curl -y
+RUN mv composer.phar /usr/local/bin/composer
 
 # Copia el código del proyecto Laravel al contenedor
 COPY . /var/www/html
@@ -38,9 +43,6 @@ RUN php artisan key:generate
 
 # Genera la key del JWT
 RUN php artisan jwt:secret
-
-# Busca en el archivo Models/User.php y remplaza tulook.vercel.app por 3.21.19.209:80
-RUN sed -i 's/tulook.vercel.app/3.141.34.121:80/g' /var/www/html/app/Models/User.php
 
 # Expone el puerto 9000 para PHP-FPM
 EXPOSE 9000

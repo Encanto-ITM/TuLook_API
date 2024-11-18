@@ -29,7 +29,7 @@ sudo apt install docker-compose -y
 sudo docker-compose up -d --build
 
 # Ejecuta el script init.sh
-./init.sh
+# ./init.sh
 
 # Sale y entra en la carpeta del frontend
 cd ../TuLook-Desarrollo-main
