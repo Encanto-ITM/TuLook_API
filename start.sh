@@ -15,9 +15,9 @@ unzip backend.zip && rm backend.zip
 unzip frontend.zip && rm frontend.zip
 
 # Da permisos 777 a la carpeta descomprimida
-chmod -R 777 TuLook_API-main
+chmod +x TuLook_API-main
 
-chmod -R 777 TuLook-Desarrollo-main
+chmod +x TuLook-Desarrollo-main
 
 # Entra en la carpeta descomprimida
 cd TuLook_API-main
@@ -27,9 +27,6 @@ sudo apt install docker-compose -y
 
 # Inicia el contenedor
 sudo docker-compose up -d --build
-
-# Ejecuta el script init.sh
-./init.sh
 
 # Sale y entra en la carpeta del frontend
 cd ../TuLook-Desarrollo-main
