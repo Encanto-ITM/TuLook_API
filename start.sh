@@ -23,7 +23,7 @@ chmod -R 777 TuLook-Desarrollo-main
 cd TuLook_API-main
 
 # instala docker-compose
-sudo apt install docker-compose -y	
+sudo apt install docker-compose -y
 
 # Inicia el contenedor
 sudo docker-compose up -d --build

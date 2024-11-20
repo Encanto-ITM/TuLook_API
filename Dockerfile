@@ -30,15 +30,14 @@ WORKDIR /var/www/html
 # Copia el archivo .env
 COPY .env.example .env
 
-# Instala dependencias de Laravel
-RUN composer install --optimize-autoloader --no-dev
-
 # Cambia el propietario de la carpeta vendor
 RUN chown -R www-data:www-data /var/www/html/vendor
+
+# Instala dependencias de Laravel
+RUN composer install --optimize-autoloader --no-dev
 
 # Genera la clave de la aplicación
 RUN php artisan key:generate
 
 # Expone el puerto 9000 para PHP-FPM
 EXPOSE 9000
-

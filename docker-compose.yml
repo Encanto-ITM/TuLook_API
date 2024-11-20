@@ -10,13 +10,8 @@ services:
       - DB_DATABASE=tulook_db
       - DB_USERNAME=tulook_api
       - DB_PASSWORD=Encantoparatodos
-    depends_on:
+    depends_on: 
       - mysql
-    volumes:
-      - .:/var/www/html:cached
-      - ./bootstrap/cache:/var/www/html/bootstrap/cache:delegated
-      - ./storage:/var/www/html/storage:delegated
-      - ./vendor:/var/www/html/vendor:delegated
 
   nginx:
     image: nginx:latest
