@@ -12,6 +12,15 @@ services:
       - DB_PASSWORD=Encantoparatodos
     depends_on: 
       - mysql
+    # Espera 30 segundos si falla el contenedor
+    # Esto es por que se debe esperar que mysql se inicie
+    # y se cree la base de datos
+    restart: on-failure:30
+    # Se ejecuta las migraciones y los seeders
+    command: >
+      bash -c "if php artisan migrate:status; then php-fpm; else php artisan migrate && php artisan db:seed && php-fpm; fi"
+
+  
 
   nginx:
     image: nginx:latest
