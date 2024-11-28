@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('lastname')->nullable(false);
             $table->string('email')->unique()->nullable(false);
             $table->string('password')->required()->nullable(false);
-            $table->timestamp('email_verified_at')->nullable(true);
             $table->string('facebook')->nullable(true)->default('No registrado');
             $table->string('instagram')->nullable(true)->default('No registrado');
             $table->string('x')->nullable(true)->default('No registrado');
@@ -27,12 +26,13 @@ return new class extends Migration
             $table->string('contact_number')->unique()->nullable(true);
             $table->string('contact_public')->nullable(true)->default(0);
             $table->string('is_active')->default(1);
-            $table->string('profilephoto')->nullable(true);
-            $table->string('headerphoto')->nullable(true);
+            $table->string('profilephoto')->nullable(true)->default("https://res.cloudinary.com/ddcpkxmzm/image/upload/v1728677266/profilephotos/eopb0vgvwvsey93ohjqj.png");
+            $table->string('headerphoto')->nullable(true)->default("https://res.cloudinary.com/ddcpkxmzm/image/upload/v1731872529/headerphotos/default_headder.jpg");
             $table->string('address')->nullable(true);
-            $table->string('description')->nullable(true);
+            $table->string('description')->nullable(true)->default("Usuario consumidor");
+            $table->timestamp('email_verified_at')->nullable(true);
             $table->rememberToken();
-            $table->foreignId('acounttype_id')->constrained('xacounttypes')->noActionOnDelete()->default(2);
+            $table->foreignId('acounttype_id')->constrained('acounttypes')->noActionOnDelete()->default(2);
             $table->foreignId('professions_id')->constrained('professions')->noActionOnDelete()->default(2);
             $table->timestamps();
         });

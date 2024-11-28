@@ -7,7 +7,7 @@ sudo apt install wget unzip -y
 # Descarga el archivo desde GitHub
 wget https://github.com/Encanto-ITM/TuLook_API/archive/refs/heads/main.zip -O backend.zip
 
-wget https://github.com/Encanto-ITM/TuLook-Desarrollo/archive/refs/heads/main.zip -O frontend.zip
+wget https://github.com/Encanto-ITM/TuLook-Produccion/archive/refs/heads/main.zip -O frontend.zip
 
 # Descomprime los archivos
 unzip backend.zip && rm backend.zip

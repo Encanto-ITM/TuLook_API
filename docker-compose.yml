@@ -1,49 +1,15 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: tulook_api
-    environment:
-      - DB_HOST=mysql
-      - DB_PORT=3306
-      - DB_DATABASE=tulook_db
-      - DB_USERNAME=tulook_api
-      - DB_PASSWORD=Encantoparatodos
-    depends_on: 
-      - mysql
-    # Espera 30 segundos si falla el contenedor
-    # Esto es por que se debe esperar que mysql se inicie
-    # y se cree la base de datos
-    restart: on-failure:30
-    # Se ejecuta las migraciones y los seeders
-    command: >
-      bash -c "if php artisan migrate:status; then php-fpm; else php artisan migrate && php artisan db:seed && php-fpm; fi"
-
-  
-
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    ports:
-      - 8080:80
-    volumes:
-      - .:/var/www/html:cached
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    depends_on:
-      - app
-
   mysql:
-    image: mysql:8.0
+    image: mysql:latest
     container_name: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: Encantoparatodos
-      MYSQL_DATABASE: tulook_db
-      MYSQL_USER: tulook_api
-      MYSQL_PASSWORD: Encantoparatodos
+      MYSQL_ROOT_PASSWORD: AdminPassword
+      MYSQL_DATABASE: tulook_bd
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: AdminPassword
     ports:
-      - 3307:3306
+      - 4506:3306
     volumes:
       - ./docker/mysql:/var/lib/mysql
 
@@ -52,11 +18,59 @@ services:
     container_name: phpmyadmin
     restart: always
     ports:
-      - 8081:80
+      - 30:80
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
-      PMA_USER: tulook_api
-      PMA_PASSWORD: Encantoparatodos
+      PMA_USER: admin
+      PMA_PASSWORD: AdminPassword
     depends_on:
       - mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tulook_api
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=tulook_bd
+      - DB_USERNAME=admin
+      - DB_PASSWORD=AdminPassword
+      - CLOUDINARY_URL=cloudinary://821486555728576:BZx_jndmOaYGLydiZ3meNk1Af4s@ddcpkxmzm
+      - CLOUDINARY_CLOUD_NAME=ddcpkxmzm
+      - CLOUDINARY_API_KEY=BZx_jndmOaYGLydiZ3meNk1Af4s
+      - CLOUDINARY_API_SECRET=821486555728576
+      - CLOUDINARY_SECURE=true
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=smtp.gmail.com
+      - MAIL_PORT=587
+      - MAIL_USERNAME=encanto.itm@gmail.com
+      - MAIL_PASSWORD=pqbsghvhdwihrvca
+      - MAIL_ENCRYPTION=tls
+      - MAIL_FROM_ADDRESS="encanto.itm@gmail.com"
+      - MAIL_FROM_NAME="TuLook Corp"
+      - FRONTEND_PASSWORD_RESET_URL=
+
+    depends_on: 
+      - mysql
+    # Espera 30 segundos si falla el contenedor
+    # Esto es por que se debe esperar que mysql se inicie
+    # y se cree la base de datos
+    restart: on-failure:30
+    # Se ejecuta las migraciones y los seeders
+    command: >
+      bash -c "if php artisan migrate:status; then php-fpm; else php artisan migrate --force && php-fpm; fi"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - 8080:80
+    restart: always
+    volumes:
+      - .:/var/www/html:cached
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
