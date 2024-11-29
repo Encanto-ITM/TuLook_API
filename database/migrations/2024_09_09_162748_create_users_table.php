@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -32,10 +33,13 @@ return new class extends Migration
             $table->string('description')->nullable(true)->default("Usuario consumidor");
             $table->timestamp('email_verified_at')->nullable(true);
             $table->rememberToken();
-            $table->foreignId('acounttype_id')->constrained('acounttypes')->noActionOnDelete()->default(2);
-            $table->foreignId('professions_id')->constrained('professions')->noActionOnDelete()->default(2);
+            $table->foreignId('acounttype_id')->constrained('acounttypes')->onDelete('no action');
+            $table->foreignId('professions_id')->constrained('professions')->onDelete('no action');
             $table->timestamps();
         });
+
+        DB::statement("ALTER TABLE users ALTER COLUMN acounttype_id SET DEFAULT 2");
+        DB::statement("ALTER TABLE users ALTER COLUMN professions_id SET DEFAULT 2");
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

@@ -81,6 +81,11 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
+    protected $attributes = [
+        'acounttype_id' => 2,
+        'professions_id' => 2,
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
